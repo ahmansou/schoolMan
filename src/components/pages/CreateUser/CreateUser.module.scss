@@ -1,0 +1,13 @@
+.Actions {
+	display: flex;
+	& * {
+		margin: auto;
+		margin-left: 10px;
+	}
+}
+
+.EditExercise {
+	position: fixed;
+	width: 600px;
+	height: 300px;
+}
