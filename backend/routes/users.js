@@ -1,5 +1,9 @@
 const router = require('express').Router();
+const jwt = require('jsonwebtoken');
 let User = require('../models/user.model');
+require('dotenv').config();
+
+const secret = process.env.JWT_SECRET;
 
 router.route('/').get((req, res) => {
 	User.find()
@@ -45,6 +49,66 @@ router.route('/update/:id').post((req, res) => {
 		})
 		.catch(err => res.status(400).json('Error: ' + err));
 })
+
+router.route('/signin').post((req, res) => {
+	const { username, password } = req.body;
+	User.findOne({ username }, function(err, user) {
+		const id = user._id;
+		const userType = user.userType;
+	  if (err) {
+		console.error(err);
+		res.status(500)
+		  .json({
+		  error: 'Internal error please try again'
+		});
+	  } else if (!user) {
+		res.status(401)
+		  .json({
+			error: 'Incorrect username or password'
+		  });
+	  } else {
+		user.isCorrectPassword(password, function(err, same) {
+		  if (err) {
+			res.status(500)
+			  .json({
+				error: 'Internal error please try again'
+			});
+		  } else if (!same) {
+			res.status(401)
+			  .json({
+				error: 'Incorrect username or password'
+			});
+		  } else {
+			// Issue token
+			const payload = { username, id, userType };
+			const token = jwt.sign(
+				payload,
+				secret,
+			);
+			// res.json({
+			// 	success: true,
+			// 	secret: secret,
+			// 	token: "Bearer " + token
+			// });
+			res.header('authToken', token)
+			.json({
+				// payload: payload,
+				username: username,
+				_id: id,
+				userType: userType,
+				success: true,
+				secret: secret,
+				authToken: token
+			});
+			// .cookie('token', token, { httpOnly: true })
+			// .sendStatus(200);
+			// sendToken()
+			// res.cookie('token', token, { httpOnly: true }).sendStatus(200);
+		  }
+		});
+	  }
+	});
+  });
 
 
 module.exports = router;

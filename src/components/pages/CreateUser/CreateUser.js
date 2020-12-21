@@ -97,6 +97,7 @@ const EditUser = (props) => {
 
 	const [state, setState] = useState({
 		username: props.user.username,
+		password: props.user.password,
 		userType: props.user.userType,
 		userId: props.user.userId,
 	});
@@ -104,6 +105,7 @@ const EditUser = (props) => {
 	const EditUsr = (id) => {
 		const user = {
 			username: state.username,
+			password: props.user.password,
 			userType: state.userType,
 			userId: state.userId,
 		}
@@ -217,7 +219,7 @@ const CreateUser = () => {
 		username: '',
 		password: '',
 		userType: 0,
-		userId: '',
+		userId: 'undefined',
 		users: [],
 		action: 0
 	});

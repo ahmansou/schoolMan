@@ -18,7 +18,7 @@ const UserSchema = new Schema({
 }, { timestamps: true, });
 
 UserSchema.pre('save', function(next){
-	console.log("chihaka");
+	// console.log("chihaka");
 	if (this.isNew || this.isModified('password')) {
 		const document = this;
 		bcrypt.hash(document.password, saltRounds, function(err, hashedPassword) {
@@ -34,6 +34,16 @@ UserSchema.pre('save', function(next){
 		next();
 	}
 });
+
+UserSchema.methods.isCorrectPassword = function(password, callback){
+	bcrypt.compare(password, this.password, function(err, same) {
+		if (err) {
+			callback(err);
+		} else {
+			callback(err, same);
+		}
+	});
+}
 
 const User = mongoose.model('User', UserSchema);
 

@@ -316,15 +316,37 @@ const Parent = (props) => {
 const Parents = () => {
 	const [state, setState] = useState({
 		parents: [],
-		action: 0
+		action: 0,
+		access: false
 	})
+
+	// if (token.token.userType === 2)
+	// 	setState({...state, access: true});
+	// 	else
+	// 	setState({...state, access: false});
 
 	const getParents = async () => {
 		try {
-			const res = await axios.get('http://localhost:5000/parents');
-			setState({...state, parents: res.data})
+			const res = await axios.get('http://localhost:5000/parents'
+			// , {
+			// 	headers: {
+			// 		'authToken': token.token.authToken
+			// 	}
+			// }
+			)
+			// .then(
+			// 	res => {
+			// 		if (res.status === 200) {
+						setState({...state, parents: res.data});
+						// setState({...state, access: true});
+			// 		}
+			// 	}
+			// )
 		}
-		catch(err) {console.error(err.message)}
+		catch(err) {
+			setState({...state, access: false});
+			console.error(err.message);
+		}
 	}
 	
 	useEffect(() => {
@@ -341,9 +363,22 @@ const Parents = () => {
 
 	console.log(state.parents);
 
+	let token = JSON.parse(localStorage.getItem('authToken'));
+
+	if (!token || token.token.userType !== 0)
+		return (
+			<div className={classes.Parents} >
+				<br/>
+				<div className="alert alert-danger" role="alert">
+					Unauthorized Access : Access Denied
+				</div>
+			</div>
+		);
+
 	return (
 
 		<div className={classes.Parents} >
+
 			<h2>Parent List</h2>
 			<button 
 				type="button"
