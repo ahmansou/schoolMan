@@ -15,7 +15,6 @@ const Navbar = () => {
 	
 	useEffect(() => {
 		var token = JSON.parse(localStorage.getItem('authToken'));
-		 e43
 		if (token)
 			setstate(token.token.username)
 	}, []);
@@ -50,6 +49,7 @@ const Navbar = () => {
 						<div className="navbar-item">
 							<Link to="/sign-in" className="nav-link btn-success">Sign-in</Link>
 						</div>
+
 					}
 				</div>
 			</div>
