@@ -1,83 +1,83 @@
 import classes from './Signin.module.scss';
-import React, { useState } from 'react';
+import React, {Component, useState} from 'react';
+import { Alert } from '../../UIElements/UIElements';
 import axios from 'axios';
 
-const Signin = (props) => {
-	const [state, setState] = useState({
+class Signin extends Component {
+	state = {
 		username: '',
 		password: '',
-		loginSuccessful: 0,
-		errmsg: ''
-	});
+		loginSuccess: 0,
+	};
 
-	const onSubmit = (e) => {
+	onSubmit = (e) => {
 		e.preventDefault();
 		const user = {
-			username: state.username,
-			password: state.password,
+			username: this.state.username,
+			password: this.state.password,
 		}
 
 		console.log(user);
 
-		axios.post('http://localhost:5000/users/signin', user)
+		axios.post('http://localhost:5000/users/signin', user, {
+			headers: {
+				'action': 'signin'
+			}
+		})
 		.then(res => {
 			if (res.status === 200) {
 				localStorage.setItem('authToken', JSON.stringify({
 					login: true,
 					token: res.data
-				}))
-				console.log(res.data);
-				setState({...state, loginSuccessful: 1})
-				props.history.push('/');
+				}));
+				this.setState({loginSuccess: 1});
+				// props.setusername(res.data.username);
+				window.location = '/sign-in';
 			}
 		})
 		.catch (err => {
-			setState({...state, loginSuccessful: 2})
-		}) 
-		
+			this.setState({loginSuccess: 2})
+		})
 	}
 
-	return (
-		<div className={classes.Signin} >
-			<h2>Sign-in</h2>
-			{/* <p>{state.username}</p>
-			<p>{state.password}</p> */}
-			{
-				state.loginSuccessful === 1? 
-				<div className="alert alert-success" role="alert">
-					Signed-in successfuly
-				</div>
-				: state.loginSuccessful === 2? 
-				<div className="alert alert-danger" role="alert">
-					Signed-in failed
-				</div>
-				: state.loginSuccessful === 3? 
-				<div className="alert alert-danger" role="alert">
-					Internal error please try again
-				</div>
+	render () {
+
+		return (
+			<div className={classes.Signin} >
+				<h2>Sign-in</h2>
+				{
+				this.state.loginSuccess === 1 ?
+					<Alert 
+					onClick={() => this.this.setState({loginSuccess: 0})} 
+					alert="success" >Signing-in successfuly</Alert>
+				: this.state.loginSuccess === 2 ?
+					<Alert 
+						onClick={() => this.setState({loginSuccess: 0})} 
+						alert="fail" >Signing-in faild</Alert>
+				: this.state.loginSuccess === 3 ?
+					<Alert 
+						onClick={() => this.setState({loginSuccess: 0})} 
+						alert="warning" >Internal error please try again</Alert>
 				: null
-			}
-			<form onSubmit={onSubmit}>
-				<div className="form-group">
-					<label className="form-label" >username:</label> 
-					<input className="form-control" type="text" required maxLength='8' minLength='8'
-						placeholder="username"
-						onChange={(e) => {setState({...state, username: e.target.value})}} 
-						/>
-				</div>
-				<div className="form-group">
-					<label className="form-label" >password:</label> 
-					<input className="form-control" type="password" required minLength='8'
-						placeholder="password"
-						onChange={(e) => {setState({...state, password: e.target.value})}} 
-						/>
-				</div>
-				<div className="form-group">
-					<input type="submit" value="Sign-in" className="btn btn-primary" />
-				</div>
-			</form>
-		</div>
-	);
+				}
+				<form className={classes.SigninForm} onSubmit={this.onSubmit} >
+					<label>Usernamne</label>
+					<input type="text" placeholder="Username" 
+						onChange={(e) => {this.setState({username: e.target.value})}} 
+						required />
+					<label>
+						<p>Password</p>
+						<p className={classes.ForgotPW} >Forgot your password?</p>
+					</label>
+					<input type="password" placeholder="Password" 
+						onChange={(e) => {this.setState({password: e.target.value})}} 
+						required />
+					<input type="submit" value="Sign-in" />
+				</form>
+				<Alert alert="warning" >If you dont have an account, reach out to one of the staff members</Alert>
+			</div>
+		)
+	}
 }
 
 export default Signin;

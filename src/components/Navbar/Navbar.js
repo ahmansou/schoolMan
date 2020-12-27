@@ -1,53 +1,64 @@
 
 import { Link } from 'react-router-dom';
 import Dropdown from 'react-bootstrap/Dropdown';
-import {useState, useEffect} from 'react';
+import Aux from '../../hoc/Aux';
 
-const Navbar = () => {
+const Navbar = (props) => {
 
-	const [state, setstate] = useState(undefined)
-
-	
 	const signout = () => {
 		localStorage.removeItem('authToken');
-		setstate(undefined);
+		// props.setusername(undefined);
+		window.location = '/sign-in';
 	}
 	
-	useEffect(() => {
-		var token = JSON.parse(localStorage.getItem('authToken'));
-		if (token)
-			setstate(token.token.username)
-	}, []);
+	let token = JSON.parse(localStorage.getItem('authToken'));
+		// if (token)
+		// 	props.setusername(token.token.username);
+
+	console.log("logged user nav:", props.username)
 
 	return (
 		<nav className="navbar navbar-dark bg-dark navbar-expand-lg" >
 			<div className="container" >
-				<Link to="/" className="navbar-brand">School manager</Link>
+				<div className="navbar-brand">School manager</div>
 				<div className="collapse navbar-collapse" > 
 					<ul className="navbar-nav mr-auto" >
-						<li className="navbar-item">
-							<Link to="/parents" className="nav-link">Parents</Link>
-						</li>
-						<li className="navbar-item">
-							<Link to="/users" className="nav-link">Users</Link>
-						</li>
+						{
+						token && token.token.userType === 0 ?
+							<Aux>
+								<li className="navbar-item">
+									<Link to="/1" className="nav-link">Students</Link>
+								</li>
+								<li className="navbar-item">
+									<Link to="/parents1" className="nav-link">Parents</Link>
+								</li>
+								<li className="navbar-item">
+									<Link to="/users1" className="nav-link">Users</Link>
+								</li>
+								<li className="navbar-item">
+									<Link to="/staffs1" className="nav-link">Staffs</Link>
+								</li>
+							</Aux>
+						: null
+						}
 					</ul>
-					{state ? 
+					{props.username ? 
 						<Dropdown>
 							<Dropdown.Toggle variant="success" id="dropdown-basic" size="sm">
-								{/* {token && token.token.username} */}
-								{state && state}
+								{props.username && props.username}
 							</Dropdown.Toggle>
 
 							<Dropdown.Menu>
-								<Dropdown.Item href="#/action-1">My profile</Dropdown.Item>
+								<Dropdown.Item href="/profile">
+									<Link to="/profile1" >My profile</Link>
+								</Dropdown.Item>
 								<Dropdown.Divider />
-								<Dropdown.Item href="#/action-2" onClick={signout}>Sign-out</Dropdown.Item>
+								<Dropdown.Item onClick={signout}>Sign-out</Dropdown.Item>
 							</Dropdown.Menu>
 						</Dropdown>
 						:
 						<div className="navbar-item">
-							<Link to="/sign-in" className="nav-link btn-success">Sign-in</Link>
+							<Link to="/sign-in1" className="nav-link btn-success">Sign-in</Link>
 						</div>
 
 					}

@@ -1,8 +1,74 @@
 .Signin {
 	margin: auto;
-	padding: 50px;
-	// background-color: cadetblue;
-	width: 500px;
-	// width: 100%;
+	padding: 40px;
+	width: 400px;
+	box-sizing: border-box;
+	background-color: white;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	& h2 {
+		width: 100%;
+		// background-color: red;
+	}
+}
+
+.SigninForm {
+	width: 100%;
 	// height: 100%;
+	margin: auto;
+	margin-bottom: 5px;
+	display: flex;
+	box-sizing: border-box;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	& input {
+		margin: 5px auto;
+		height: 40px;
+		// width: 200px;
+		padding: 5px 20px;
+		border: none;
+		background-color: #EFEFEF;
+		transition: all .3s ease;
+	}
+	& input[type = text], & input[type = password] {
+		width: calc(100% - 40px);
+		&:focus {
+			outline: none;
+			background-color: #dddddd;
+		}
+	}
+	& input[type = submit] {
+		width: 100%;
+		height: 50px;
+		background-color: #f4a261;
+		color: white;
+		cursor: pointer;
+		transition: all .3s ease;
+		font-weight: bold;
+		font-size: 15px;
+		&:hover {
+			background-color: #F29040;
+		}
+	}
+	& label {
+		width: 100%;
+		margin: 5px auto;
+		color: #616161;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		& * {
+			margin: 0 auto;
+			margin-left: 0;
+		}
+		& .ForgotPW {
+			color: #F0852D;
+			margin-left: auto;
+			margin-right: 0;
+			cursor: pointer;
+		}
+	}
 }

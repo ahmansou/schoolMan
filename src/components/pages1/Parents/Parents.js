@@ -20,24 +20,33 @@ const AddParent = (props) => {
 	});
 
 	const onSubmit = (e) => {
-		e.preventDefault();
-		const parent = {
-			nid: state.nid,
-			username: state.username,
-			firstName: state.firstName,
-			lastName: state.lastName,
-			dateOfBirth: state.dateOfBirth,
-			gender: state.gender,
-			address: state.address,
-			mobilePhone: state.mobilePhone,
-			homePhone: state.homePhone,
-			email: state.email,
-			profession: state.profession
+		let token = JSON.parse(localStorage.getItem('authToken'));
+		if (token) {
+			e.preventDefault();
+			const parent = {
+				nid: state.nid,
+				username: state.username,
+				firstName: state.firstName,
+				lastName: state.lastName,
+				dateOfBirth: state.dateOfBirth,
+				gender: state.gender,
+				address: state.address,
+				mobilePhone: state.mobilePhone,
+				homePhone: state.homePhone,
+				email: state.email,
+				profession: state.profession
+			}
+			console.log(parent);
+			axios.post('http://localhost:5000/parents/add', parent, {
+				headers: {
+					'Test-Header': 'test-value',
+					'authToken': token.token.authToken,
+					'userType': token.token.userType
+				}
+			})
+			.then(res => props.getParents());
+			props.setstate();
 		}
-		console.log(parent);
-		axios.post('http://localhost:5000/parents/add', parent)
-		.then(res => props.getParents());
-		props.setstate();
 	}
 
 	return (
@@ -113,23 +122,32 @@ const EditParent = (props) => {
 	const [state, setState] = useState(props.parent);
 
 	const EditSt = (id) => {
-		const parent = {
-			nid: state.nid,
-			username: state.username,
-			firstName: state.firstName,
-			lastName: state.lastName,
-			dateOfBirth: state.dateOfBirth,
-			gender: state.gender,
-			address: state.address,
-			mobilePhone: state.mobilePhone,
-			homePhone: state.homePhone,
-			email: state.email,
-			profession: state.profession
+		let token = JSON.parse(localStorage.getItem('authToken'));
+		if (token) {
+			const parent = {
+				nid: state.nid,
+				username: state.username,
+				firstName: state.firstName,
+				lastName: state.lastName,
+				dateOfBirth: state.dateOfBirth,
+				gender: state.gender,
+				address: state.address,
+				mobilePhone: state.mobilePhone,
+				homePhone: state.homePhone,
+				email: state.email,
+				profession: state.profession
+			}
+			axios.post('http://localhost:5000/parents/update/' + id, parent, {
+				headers: {
+					'Test-Header': 'test-value',
+					'authToken': token.token.authToken,
+					'userType': token.token.userType
+				}
+			})
+				.then(res => console.log('updated successfuly ' + res.data));
+			props.setAction(0);
+			window.location = '/parents';
 		}
-		axios.post('http://localhost:5000/parents/update/' + id, parent)
-			.then(res => console.log('updated successfuly ' + res.data));
-		props.setAction(0);
-		window.location = '/parents';
 	}
 
 	return (
@@ -319,33 +337,23 @@ const Parents = () => {
 		action: 0,
 		access: false
 	})
-
-	// if (token.token.userType === 2)
-	// 	setState({...state, access: true});
-	// 	else
-	// 	setState({...state, access: false});
-
+	
 	const getParents = async () => {
-		try {
-			const res = await axios.get('http://localhost:5000/parents'
-			// , {
-			// 	headers: {
-			// 		'authToken': token.token.authToken
-			// 	}
-			// }
-			)
-			// .then(
-			// 	res => {
-			// 		if (res.status === 200) {
-						setState({...state, parents: res.data});
-						// setState({...state, access: true});
-			// 		}
-			// 	}
-			// )
-		}
-		catch(err) {
-			setState({...state, access: false});
-			console.error(err.message);
+		let token = JSON.parse(localStorage.getItem('authToken'));
+		if (token) {
+			try {
+				const res = await axios.get('http://localhost:5000/parents', {
+					headers: {
+						'authToken': token.token.authToken,
+						'userType': token.token.userType
+					}
+				})
+				setState({...state, parents: res.data});
+			}
+			catch(err) {
+				setState({...state, access: false});
+				console.error(err.message);
+			}
 		}
 	}
 	
@@ -354,9 +362,18 @@ const Parents = () => {
 	}, []);
 
 	const deleteParent = (id) => {
-		axios.delete('http://localhost:5000/parents/' + id)
-			.then(res => console.log('deleted successfuly ' + res.data));
-		setState({...state, parents: state.parents.filter(el => el._id !== id)})
+		let token = JSON.parse(localStorage.getItem('authToken'));
+		if (token) {
+			axios.delete('http://localhost:5000/parents/' + id, {
+				headers: {
+					'Test-Header': 'test-value',
+					'authToken': token.token.authToken,
+					'userType': token.token.userType
+				}
+			})
+				.then(res => console.log('deleted successfuly ' + res.data));
+			setState({...state, parents: state.parents.filter(el => el._id !== id)})
+		}
 	}
 	
 

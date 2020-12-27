@@ -1,0 +1,54 @@
+.Alert{
+	width: 100%;
+	min-height: 50px;
+	// padding: 20px;
+	padding: 0 20px;
+	box-sizing: border-box;
+	margin: auto;
+	margin-bottom: 5px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	border: 1px solid;
+
+	& .CloseAlert {
+		width: 15px;
+		height: 15px;
+		display: flex;
+		align-items: center;
+		cursor: pointer;
+		justify-content: center;
+		box-sizing: border-box;
+	}
+	
+	& .AlertBody {
+		margin-left: 0px;
+		box-sizing: border-box;
+		align-items: center;
+		display: flex;
+		& p {
+			margin-left: 10px;
+		}
+	}
+}
+
+.AlertSuccess {
+	background-color: #CAFFBF;
+	color: #4d6947;
+	border-color: #b0dba7;
+}
+
+.AlertFail {
+	background-color: #FFADAD;
+	color: #865151;
+	border-color: #d89c9c;
+	
+}
+
+.AlertWarning {
+	background-color: #FFD6A5;
+	color: #9c734d;
+	border-color: #d6b48e;
+
+}

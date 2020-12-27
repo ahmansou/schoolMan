@@ -10,11 +10,20 @@ const GetStudents = (props) => {
 	});
 
 	const getStudents = async () => {
-		try {
-			const res = await axios.get('http://localhost:5000/students');
-			setState({...state, students: res.data})
+		let token = JSON.parse(localStorage.getItem('authToken'));
+		if (token) {
+			try {
+				const res = await axios.get('http://localhost:5000/students', {
+					headers: {
+						'authToken': token.token.authToken,
+						'userType': token.token.userType
+					}
+				});
+				setState({...state, students: res.data})
+				props.setState({...props.state, userId: res.data[0]._id});
+			}
+			catch(err) {console.error(err.message)}
 		}
-		catch(err) {console.error(err.message)}
 	}
 
 	useEffect(() => {
@@ -48,6 +57,57 @@ const GetStudents = (props) => {
 	)
 }
 
+const GetStaffs = (props) => {
+	const [state, setState] = useState([]);
+
+	const getStaffs = async () => {
+		let token = JSON.parse(localStorage.getItem('authToken'));
+		if (token) {
+			try {
+				const res = await axios.get('http://localhost:5000/staff', {
+					headers: {
+						'authToken': token.token.authToken,
+						'userType': token.token.userType
+					}
+				});
+				setState(res.data);
+				props.setState({...props.state, userId: res.data[0]._id});
+			}
+			catch(err) {console.error(err.message)}
+		}
+	}
+
+	useEffect(() => {
+		getStaffs();
+	}, []);
+
+	return (
+		<Aux>
+		{
+		props.edit === true ?
+			<select className="form-control" required
+				value={props.userId}
+				onChange={(e) => {props.setState({...props.state, userId: e.target.value})}} >
+				{
+					state.students && state.students.map((student, key) => (
+						<option key={key} value={student._id} > {student.firstName} {student.lastName} </option>
+					))
+				}
+			</select>
+		:
+			<select className="form-control" required
+				onChange={(e) => {props.setState({...props.state, userId: e.target.value})}} >
+				{
+					state && state.map((student, key) => (
+						<option key={key} value={student._id} > {student.firstName} {student.lastName} </option>
+					))
+				}
+			</select>
+		}
+		</Aux>
+	)
+}
+
 const GetParents = (props) => {
 
 	const [state, setState] = useState({
@@ -55,11 +115,20 @@ const GetParents = (props) => {
 	});
 
 	const getParents = async () => {
-		try {
-			const res = await axios.get('http://localhost:5000/parents');
-			setState({...state, parents: res.data})
+		let token = JSON.parse(localStorage.getItem('authToken'));
+		if (token) {
+			try {
+				const res = await axios.get('http://localhost:5000/parents', {
+					headers: {
+						'authToken': token.token.authToken,
+						'userType': token.token.userType
+					}
+				});
+				setState({...state, parents: res.data})
+				props.setState({...props.state, userId: res.data[0]._id});
+			}
+			catch(err) {console.error(err.message)}
 		}
-		catch(err) {console.error(err.message)}
 	}
 
 	useEffect(() => {
@@ -103,15 +172,23 @@ const EditUser = (props) => {
 	});
 
 	const EditUsr = (id) => {
-		const user = {
-			username: state.username,
-			password: props.user.password,
-			userType: state.userType,
-			userId: state.userId,
+		let token = JSON.parse(localStorage.getItem('authToken'));
+		if (token) {
+			const user = {
+				username: state.username,
+				password: props.user.password,
+				userType: state.userType,
+				userId: state.userId,
+			}
+			axios.post('http://localhost:5000/users/update/' + id, user, {
+				headers: {
+					'authToken': token.token.authToken,
+					'userType': token.token.userType
+				}
+			})
+				.then(res => props.getUsers());
+			props.setAction(0);
 		}
-		axios.post('http://localhost:5000/users/update/' + id, user)
-			.then(res => props.getUsers());
-		props.setAction(0);
 	}
 
 	return (
@@ -137,6 +214,8 @@ const EditUser = (props) => {
 				<GetStudents state={state} setState={setState} edit={true} userId={props.user.userId} />
 			: state.userType === 4 ?
 				<GetParents state={state} setState={setState} edit={true}  userId={props.user.userId} />
+			: state.userType === "1" || state.userType === "0" ?
+			<GetStaffs state={state} setState={setState} edit={false} />
 			: null
 			}
 			</td>
@@ -223,49 +302,84 @@ const CreateUser = () => {
 		users: [],
 		action: 0
 	});
+	
 
 	const getUsers = async () => {
-		try {
-			const usersG = await axios.get('http://localhost:5000/users')
-			setState({...state, users: usersG.data});
-		}
-		catch (err) {
-			console.error(err.message);
+		let token = JSON.parse(localStorage.getItem('authToken'));
+		if (token) {
+			try {
+				const usersG = await axios.get('http://localhost:5000/users', {
+					headers: {
+						'authToken': token.token.authToken,
+						'userType': token.token.userType
+					}
+				})
+				setState({...state, users: usersG.data});
+			}
+			catch (err) {
+				console.error(err.message);
+			}
 		}
 	}
 
 	const onSubmit = (e) => {
-		e.preventDefault();
-		const user = {
-			username: state.username,
-			password: state.password,
-			userType: state.userType,
-			userId: state.userId,
+		let token = JSON.parse(localStorage.getItem('authToken'));
+		if (token) {
+			e.preventDefault();
+			const user = {
+				username: state.username,
+				password: state.password,
+				userType: state.userType,
+				userId: state.userId,
+			}
+
+			console.log(user);
+
+			axios.post('http://localhost:5000/users/add', user, {
+				headers: {
+					'Test-Header': 'test-value',
+					'authToken': token.token.authToken,
+					'userType': token.token.userType
+				}
+			})
+				.then(res => getUsers());
+			getUsers();
 		}
-
-		console.log(user);
-
-		axios.post('http://localhost:5000/users/add', user)
-			.then(res => getUsers());
-			// .then(res => console.log(res.data));
-
-
-		// setState({...state, username: ''});
-		getUsers();
 	}
 
 	const deleteUser = (id) => {
-		axios.delete('http://localhost:5000/users/' + id)
-			.then(res => console.log('deleted successfuly ' + res.data));
-		setState({...state, users: state.users.filter(user => user._id !== id)})
+		let token = JSON.parse(localStorage.getItem('authToken'));
+		if (token) {
+			axios.delete('http://localhost:5000/users/' + id, {
+				headers: {
+					'authToken': token.token.authToken,
+					'userType': token.token.userType
+				}
+			})
+				.then(res => console.log('deleted successfuly ' + res.data));
+			setState({...state, users: state.users.filter(user => user._id !== id)})
+		}
 	}
 
 	useEffect(() => {
 		getUsers();
 	}, []);
 
+	let token = JSON.parse(localStorage.getItem('authToken'));
+
+	// if (!token)
+	if (!token || token.token.userType !== 0)
+		return (
+			<div className={classes.Parents} >
+				<br/>
+				<div className="alert alert-danger" role="alert">
+					Unauthorized Access : Access Denied
+				</div>
+			</div>
+	);
 
 	console.log(state.users);
+	
 	
 	return (
 	  <div>
@@ -300,6 +414,8 @@ const CreateUser = () => {
 					<GetStudents state={state} setState={setState} edit={false} />
 					: state.userType === "4" ?
 					<GetParents state={state} setState={setState} edit={false} />
+					: state.userType === "1" || state.userType === "0" ?
+					<GetStaffs state={state} setState={setState} edit={false} />
 					: null
 				}
 			</div>

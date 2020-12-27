@@ -1,11 +1,13 @@
 const router = require('express').Router();
 const jwt = require('jsonwebtoken');
 let User = require('../models/user.model');
+const withAuth = require('../middleware');
 require('dotenv').config();
 
 const secret = process.env.JWT_SECRET;
 
 router.route('/').get((req, res) => {
+	// withAuth(req, res);
 	User.find()
 		.then(users => res.json(users))
 		.catch(err => res.status(400).json('Error: ' + err));
@@ -29,7 +31,13 @@ router.route('/add').post((req, res) => {
 		.catch(err => res.status(400).json('Error: ' + err));
 })
 
+router.route('/:id').get((req, res) => {
+	User.findById(req.params.id)
+		.then(User => res.json(User))
+		.catch(err => res.status(400).json('Error: ' + err));
+})
 router.route('/:id').delete((req, res) => {
+	// withAuth(req, res);
 	User.findByIdAndDelete(req.params.id)
 		.then(() => res.json('User deleted'))
 		.catch(err => res.status(400).json('Error: ' + err));
@@ -85,11 +93,6 @@ router.route('/signin').post((req, res) => {
 				payload,
 				secret,
 			);
-			// res.json({
-			// 	success: true,
-			// 	secret: secret,
-			// 	token: "Bearer " + token
-			// });
 			res.header('authToken', token)
 			.json({
 				// payload: payload,

@@ -26,14 +26,18 @@ const exercisesRouter = require('./routes/exercises');
 const usersRouter = require('./routes/users');
 const studentsRouter = require('./routes/students');
 const parentsRouter = require('./routes/parents');
+const staffRouter = require('./routes/staff');
 
 
 
 app.use('/exercises', exercisesRouter);
-app.use('/users', usersRouter);
-app.use('/students', studentsRouter);
-// app.use('/parents', withAuth, parentsRouter);
-app.use('/parents', parentsRouter);
+// app.use('/users',   usersRouter);
+app.use('/users', withAuth,  usersRouter);
+app.use('/students', withAuth, studentsRouter);
+// app.use('/students', studentsRouter);
+app.use('/parents', withAuth, parentsRouter);
+app.use('/staff', withAuth, staffRouter);
+// app.use('/staff', staffRouter);
 
 // app.get('/secret', withAuth, function(req, res) {
 // 	res.send('The password is potato');
