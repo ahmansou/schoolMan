@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-
+import { BrowserRouter as Router, Route, Redirect, useRouteMatch } from 'react-router-dom';
 
 class Profile extends Component {
 	state = {
@@ -68,15 +68,15 @@ class Profile extends Component {
 			
 		return (
 			<div>
-			<h1>My profile</h1>
-			<p> {token.token._id} </p>
-			{/* <p> {this.state.user.userType} </p> */}
-			{this.state.user && this.state.user.userType === 3 ? 
-				<p>{this.state.student && this.state.student.username}</p>
-			: this.state.user && (this.state.user.userType === 0 || this.state.user.userType === 1) ? 
-				<p>{this.state.staff && this.state.staff.username}</p>
-			 : null}
-		</div>
+				<h1>My profile</h1>
+				<p> {token.token._id} </p>
+				{/* <p> {this.state.user.userType} </p> */}
+				{this.state.user && this.state.user.userType === 3 ? 
+					<p>{this.state.student && this.state.student.username}</p>
+				: this.state.user && (this.state.user.userType === 0 || this.state.user.userType === 1) ? 
+					<p>{this.state.staff && this.state.staff.username}</p>
+				: null}
+			</div>
 		)
 	}
 }

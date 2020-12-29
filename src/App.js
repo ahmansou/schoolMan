@@ -1,5 +1,5 @@
 
-// import "bootstrap/dist/css/bootstrap.min.css"; 
+import "bootstrap/dist/css/bootstrap.min.css"; 
 // import CreateUser from './components/pages1/CreateUser/CreateUser';
 // import Students from './components/pages1/Students/Students';
 // import Navbar from './components/Navbar/Navbar';

@@ -1,0 +1,168 @@
+.SideBar {
+	background-color: #264653;
+	height: 100vh;
+	transition: all .3s ease-out;
+	overflow-x: hidden;
+	.SideBarTitle {
+		height: 60px;
+		width: 100%;
+		transition: width .3 ease;
+		background-color: #E76F51;
+		text-transform: uppercase;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+		color: white;
+		box-sizing: border-box;
+		& .SideBarTitleItem {
+			margin: auto;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			box-sizing: border-box;
+			color: white;
+			margin-left: 13px;
+			& * {
+				margin: 0 5px;
+			}
+			:visited {
+				text-decoration: none;
+				color: white;
+			}
+			:hover {
+				color: white;
+				text-decoration: none;
+			}
+		}
+		& .SideBarClose {
+			margin: auto;
+			margin-right: 20px;
+			cursor: pointer;
+			// border: solid;
+		}
+		& .SideBarShow {
+			margin: auto;
+			cursor: pointer;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			width: 60px;
+			height: 100%;
+			box-sizing: border-box;
+			justify-content: center;
+			&:hover {
+				background-color: #bd5339;
+			}
+		}
+	}
+	.SideBarMain {
+		user-select: none;
+		width: 100%;
+		height: calc(100% - 60px);
+		overflow-y: auto;
+		overflow-x: hidden;
+		&::-webkit-scrollbar {
+			width: 8px;
+		}
+		&::-webkit-scrollbar-thumb {
+			background-color: #13232a;
+		  }
+		.SideBarMainItemToggle {
+			user-select: none;
+			cursor: pointer;
+			width: 100%;
+			height: 60px;
+			color: white;
+			display: flex;
+			box-sizing: border-box;
+			border-bottom: solid #203A46;
+			transition: all .3s ease-out;
+			& * {
+				user-select: none;
+				margin: auto;
+				margin-left: 20px;
+				margin-right: 0px;
+			}
+			& * {
+				user-select: none;
+			}
+			&:hover {
+				background-color: #203A46;
+				text-decoration: none;
+				// border-bottom: solid #13232a;
+			}
+			& .Arrow {
+				margin: auto;
+				margin-right: 20px;
+			}
+		}
+
+		.SideBarMainItemBody {
+			transition: all .3s ease;
+			width: 100%;
+			// height: 500px;
+			display: flex;
+			flex-direction: column;
+			overflow: hidden;
+			background-color: #1a2f38;
+			.SideBarMainItemLink {
+				cursor: pointer;
+				margin: auto;
+				width: 100%;
+				padding-left: 50px;
+				padding-right: 50px;
+				text-align: right;
+				display: flex;
+				overflow: hidden;
+				height: 40px;
+				align-items: center;
+				justify-content: flex-start;
+				color: white;
+				transition: all .3s ease-out;
+				&:hover {
+					transition: all .3s ease-out;
+					background-color: #13232a;
+					text-decoration: none;
+				}
+			}
+		}
+
+		.SideBarMainItemBodyOpen {
+			height: auto;
+			padding: 10px 0;
+		}
+		
+		.SideBarMainItemBodyClosed {
+			// display: none;
+			overflow: hidden;
+			height: 0px;
+		}
+
+		.SideBarMainItemBodyHover {
+			position: absolute;
+			width: max-content;
+			left: 60px;
+			margin-top: -60px;
+			box-shadow: 0 0 15px hsla(0, 0, 0, .5);
+		}
+		.SideBarMainItemBlank {
+			width: 100%;
+			height: 30px;
+		}
+	}
+}
+
+.SideBarClosed {
+	width: 63px;
+	.SideBarTitle {
+		.SideBarShow {
+			margin-left: 0;
+		}
+	}
+}
+
+.SideBarOpen {
+	width: 300px;
+	min-width: 230px;
+}

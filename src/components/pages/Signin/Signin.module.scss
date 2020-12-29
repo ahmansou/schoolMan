@@ -4,13 +4,15 @@
 	width: 400px;
 	box-sizing: border-box;
 	background-color: white;
+	box-shadow: 0 0 50px hsla(0, 0, 0, 0.4);
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	// border-radius: 5px;
 	& h2 {
 		width: 100%;
-		// background-color: red;
+		// background-color: ;
 	}
 }
 
@@ -34,7 +36,8 @@
 		transition: all .3s ease;
 	}
 	& input[type = text], & input[type = password] {
-		width: calc(100% - 40px);
+		// width: calc(100% - 40px);
+		width: 100%;
 		&:focus {
 			outline: none;
 			background-color: #dddddd;

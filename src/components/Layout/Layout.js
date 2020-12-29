@@ -1,28 +1,67 @@
 import classes from './Layout.module.scss';
 import Signin from '../pages/Signin/Signin';
+import Profile from '../pages/Profile/Profile';
+import SideBar from '../UIElements/SideBar/SideBar';
+import Header from '../UIElements/Header/Header';
+import Students from '../pages/Students/Students';
+import Students1 from '../pages1/Students/Students';
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect, useRouteMatch } from 'react-router-dom';
+
+const RequireAuth = (props, activeOnlyWhenExact) => {
+	let match = useRouteMatch({
+		path: props.to,
+		exact: activeOnlyWhenExact
+	  });
+	// if (!match && props.username === undefined)
+	if (!match)
+		window.location = '/sign-in';
+	return false;
+}
 
 class Layout extends Component {
 	state = {
 		username: undefined
 	}
 
+	
 	componentDidMount() {
 		let token = JSON.parse(localStorage.getItem('authToken'));
 		if (token)
 			this.setState({username: token.token.username});
-	}	
+	}
 
+	componentDidUpdate() {
+		
+	}
+	
 	render() {
+		let token = JSON.parse(localStorage.getItem('authToken'));
+
 		return (
 			<Router>
+				{!token ? <Redirect to="/sign-in" /> : null}
 				<div className={classes.Layout} >
-					{/* {this.state.username} */}
+					{token ? <SideBar /> : null}
+					{
+						token ?
+						<div className={classes.Main} >
+							{token ? <Header /> : null}
+							<Route path="/profile" exact>
+								<Profile requireAuth={RequireAuth} />
+							</Route>
+							<Route path="/students" exact>
+								<Students requireAuth={RequireAuth} />
+							</Route>
+							<Route path="/new-student" exact>
+								<Students1 requireAuth={RequireAuth} />
+							</Route>
+						</div>
+						: null
+					}
 					<Route path="/sign-in" exact>
 						<Signin />
 					</Route>
-					{/* dsds */}
 				</div>
 			</Router>
 		)

@@ -1,0 +1,85 @@
+$headerHeight : 60px;
+
+@keyframes cardEntrance {
+	from {
+		opacity: 0;
+		// transform: scale(0);
+		// width: 0;
+		// height: 0;
+	}
+	to {
+		opacity: 1;
+		height: max-content;
+	}
+}
+
+.Header {
+	height: $headerHeight;
+	width: 100%;
+	padding: 20px;
+	background-color: #2A9D8F;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	align-items: center;
+	& .Icons {
+		margin: auto 20px;
+		color: white;
+		cursor: pointer;
+	}
+	& .UserSection {
+		display: flex;
+		height: 100%;
+		flex-direction: column;
+		background-color: green;
+		& p {
+			background-color: yellow;
+		}
+	}
+	& .ProfileDrop {
+		transition: all .3s ease;
+		background-color: white;
+		color: rgb(100, 100, 100);
+		box-shadow: 0 0 15px hsla(0, 0, 40%, .5);
+		position: absolute;
+		top: $headerHeight;
+		width: 250px;
+		display: flex;
+		overflow: hidden;
+		flex-direction: column;
+		& .ProfileDropAction {
+			& * {
+				margin: auto 10px;
+				margin-left: 0;
+			}
+			text-decoration: none;
+			display: flex;
+			align-items: center;
+			color: inherit;
+			&:visited {
+				color: inherit;
+			}
+			padding: 10px 20px;
+			cursor: pointer;
+			transition: all .3s ease;
+			&:hover {
+				background-color: #F8F9FA;
+			}
+		}
+		& .User {
+			padding: 20px;
+			background-color: #E76F51;
+			color: white;
+			font-weight: 700;
+			text-transform: capitalize;
+		}
+	}
+	& .ProfileDropOpen {
+		height: auto;
+		padding-bottom: 10px;
+
+	}
+	& .ProfileDropClosed {
+		height: 0px;
+	}
+}

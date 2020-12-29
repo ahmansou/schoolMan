@@ -32,7 +32,7 @@ class Signin extends Component {
 				}));
 				this.setState({loginSuccess: 1});
 				// props.setusername(res.data.username);
-				window.location = '/sign-in';
+				window.location = '/';
 			}
 		})
 		.catch (err => {
@@ -41,19 +41,23 @@ class Signin extends Component {
 	}
 
 	render () {
-
+		let token = JSON.parse(localStorage.getItem('authToken'));
+			
 		return (
+			token ? 
+				window.location = '/'
+			:
 			<div className={classes.Signin} >
 				<h2>Sign-in</h2>
 				{
 				this.state.loginSuccess === 1 ?
 					<Alert 
-					onClick={() => this.this.setState({loginSuccess: 0})} 
-					alert="success" >Signing-in successfuly</Alert>
+					onClick={() => this.setState({loginSuccess: 0})} 
+					alert="success" >Signed-in successfully</Alert>
 				: this.state.loginSuccess === 2 ?
 					<Alert 
 						onClick={() => this.setState({loginSuccess: 0})} 
-						alert="fail" >Signing-in faild</Alert>
+						alert="fail" >Signing-in failed</Alert>
 				: this.state.loginSuccess === 3 ?
 					<Alert 
 						onClick={() => this.setState({loginSuccess: 0})} 

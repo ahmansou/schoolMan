@@ -1,5 +1,5 @@
 import classes from './UIElements.module.scss';
-import { Close, ReportProblemOutlined } from '@material-ui/icons'
+import { Close, ReportProblemOutlined, CheckCircleOutlined } from '@material-ui/icons'
 
 export const Alert = (props) => {
 	let classname = [classes.Alert];
@@ -21,7 +21,12 @@ export const Alert = (props) => {
 	return (
 		<div className={classname} >
 			<div className={classes.AlertBody} >
-				<ReportProblemOutlined />
+				{
+					props.alert === 'success' ?
+					<CheckCircleOutlined />
+					:
+					<ReportProblemOutlined />
+				}
 				<p>{props.children}</p>
 			</div>
 			{
@@ -30,5 +35,20 @@ export const Alert = (props) => {
 				: null
 			}
 		</div>
-)
+	)
 }
+
+export const BackDrop = (props) => (
+	<div className={classes.BackDrop} onClick={props.onClick} ></div>
+);
+
+export const FilterSelect = (props) => (
+	<select className={classes.FilterSelect} type="text" value={null}
+		onChange={props.onChange}
+	 >
+		<option value={null}>Filter by {props.msg} </option>
+		{props.itemArray && props.itemArray.map((item, key) => (
+			<option key={key} value={item.value} >{item.name}</option>
+		))}
+	</select>
+)

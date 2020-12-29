@@ -1,0 +1,74 @@
+.Students {
+	width: 100%;
+	height: 100vh;
+	overflow-y: auto;
+	padding: 50px;
+	.Filters {
+		width: 100%;
+		padding: 20px 0;
+		display: flex;
+		flex-direction: row;
+		& * {
+			margin-right: 20px;
+		}
+		& input[type = text] {
+			background-color: #EFEFEF;
+			border: none;
+			background-color: #EFEFEF;
+			transition: all .3s ease;
+			width: 300px;
+			padding: 5px 20px;
+			&:focus {
+				outline: none;
+				background-color: #dddddd;
+			}
+		}
+		& button {
+			background-color: #f4a261;
+			border: none;
+			width: 150px;
+			padding: 5px 20px;
+			color: white;
+			font-weight: bold;
+			font-size: 15px;
+			&:hover {
+				background-color: #F29040;
+			}
+		}
+	}
+	.StudentsList {
+		margin-top: 20px;
+		width: 100%;
+		height: max-content;	
+		background-color: white;
+		padding: 20px;
+		padding-bottom: 120px;
+		overflow-y: auto;
+		.OptionToggle {
+			width: 20px;
+			cursor: pointer;
+			position: relative;
+			:hover {
+				
+			}
+			.Actions {
+				background-color: white;
+				color: rgb(100, 100, 100);
+				box-shadow: 0 0 15px hsla(0, 0, 40%, .5);
+				z-index: 99999;
+				width: 150px;
+				padding: 10px 0;
+				position: absolute;
+				top: 50px;
+				right: 0px;
+				.Action {
+					// background-color: green;
+					padding: 10px 20px;
+					&:hover {
+						background-color: #F8F9FA;
+					}
+				}
+			}
+		}
+	}
+}
