@@ -2,7 +2,7 @@
 	background-color: #264653;
 	height: 100vh;
 	transition: all .3s ease-out;
-	overflow-x: hidden;
+	// overflow-x: hidden;
 	.SideBarTitle {
 		height: 60px;
 		width: 100%;
@@ -78,6 +78,9 @@
 			box-sizing: border-box;
 			border-bottom: solid #203A46;
 			transition: all .3s ease-out;
+
+
+			position: relative;
 			& * {
 				user-select: none;
 				margin: auto;
@@ -96,8 +99,13 @@
 				margin: auto;
 				margin-right: 20px;
 			}
+
+			// &:hover .Tooltiptext {
+			// 	display: block;
+			// }
 		}
 
+		
 		.SideBarMainItemBody {
 			transition: all .3s ease;
 			width: 100%;
@@ -142,6 +150,7 @@
 		.SideBarMainItemBodyHover {
 			position: absolute;
 			width: max-content;
+			z-index: 99999;
 			left: 60px;
 			margin-top: -60px;
 			box-shadow: 0 0 15px hsla(0, 0, 0, .5);
@@ -152,6 +161,7 @@
 		}
 	}
 }
+
 
 .SideBarClosed {
 	width: 63px;
@@ -165,4 +175,36 @@
 .SideBarOpen {
 	width: 300px;
 	min-width: 230px;
+}
+
+@media (max-width: 1200px) {
+	// .SideBarOpen {
+	// 	width: 63px;
+	// 	min-width: 63px;
+	// 	.SideBarTitle {
+	// 		.SideBarShow {
+	// 			margin-left: 0;
+	// 		}
+	// 	}
+	// }
+}
+
+.SideBarItem:hover .Tooltiptext {
+	// display: block;
+	transition: all .3s ease-out;
+	transform: scale(1);
+}
+
+.Tooltiptext {
+	// display: none;
+	transform: scale(0);
+	width: 120px;
+	background-color: rgba(0, 0, 0, 0.7);
+	color: #fff;
+	text-align: center;
+	border-radius: 6px;
+	left: 63px;
+	padding: 5px 0;
+	position: absolute;
+	z-index: 1;
 }

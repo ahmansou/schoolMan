@@ -1,10 +1,11 @@
 import { MoreVert } from '@material-ui/icons';
 import axios from 'axios';
 import React, { Component, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 import Aux from '../../../hoc/Aux';
 import { Alert, BackDrop, FilterSelect } from '../../UIElements/UIElements';
 import classes from './Students.module.scss';
+import pp from '../../../assets/me.jpeg';
 
 class Student extends Component {
 	state = {
@@ -27,13 +28,11 @@ class Student extends Component {
 		}
 	}
 
-
-	
-
 	render () {
 		return (
 			<tr>
 				<td>#{this.props.student.sid}</td>
+				<td className={classes.StudentImage} style={{backgroundImage: `url(${pp})`}} ></td>
 				<td>{this.props.student.nid}</td>
 				<td>{this.props.student.username}</td>
 				<td>{this.props.student.lastName} {this.props.student.firstName}</td>
@@ -42,16 +41,18 @@ class Student extends Component {
 				<td>{this.props.student.startYear}</td>
 				<td>{this.state.parent && 
 					this.state.parent.firstName + ' ' + this.state.parent.lastName}</td>
-				<td>dsds</td>
-				<td>dsds</td>
+				<td>SM</td>
+				<td>SM1</td>
 				<td onClick={() => this.setState({action : !this.state.action})} className={classes.OptionToggle} >
 					<MoreVert />
 					{ this.state.action  ? <BackDrop onClick={() => this.setState({action : !this.state.action})} /> : null }
 					{
 					this.state.action ? 
 					<div className={classes.Actions} >
-						<div className={classes.Action} >View details</div>
-						<div className={classes.Action} onClick={() => this.props.deleteStudent(this.props.student._id)} >Delete</div>
+						<Link className={classes.Action} 
+						to={{pathname: `student-details/student=${this.props.student._id}`}}
+						>View details</Link>
+						<div className={[classes.Action, classes.DeleteAction].join(' ')} onClick={() => this.props.deleteStudent(this.props.student._id)} >Delete</div>
 					</div>
 					: null
 					}
@@ -132,7 +133,10 @@ class Students extends Component {
 			);
 		return (
 			<div className={classes.Students}>
-				<h4>Students list</h4>
+				<div className={classes.StudentsTitle} >
+					<h4>Students list</h4>
+					<Link className={classes.StudentsNewStudent} to='/new-student'>Add new Student</Link>
+				</div>
 				<div className={classes.StudentsList} >
 					<h4>All students</h4>
 					<div className={classes.Filters} >
@@ -144,6 +148,7 @@ class Students extends Component {
 					<table className="table">
 						<thead>
 							<th scope="col">Sid</th>
+							<th scope="col"></th>
 							<th scope="col">Nid</th>
 							<th scope="col">Username</th>
 							<th scope="col">Full name</th>

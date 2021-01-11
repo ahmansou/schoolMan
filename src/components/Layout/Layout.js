@@ -5,8 +5,10 @@ import SideBar from '../UIElements/SideBar/SideBar';
 import Header from '../UIElements/Header/Header';
 import Students from '../pages/Students/Students';
 import Students1 from '../pages1/Students/Students';
+import NewStudent from '../pages/Students/NewStudent/NewStudent';
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Redirect, useRouteMatch } from 'react-router-dom';
+import StudentDetails from '../pages/Students/StudentDetails/StudentDetails';
 
 const RequireAuth = (props, activeOnlyWhenExact) => {
 	let match = useRouteMatch({
@@ -54,8 +56,18 @@ class Layout extends Component {
 								<Students requireAuth={RequireAuth} />
 							</Route>
 							<Route path="/new-student" exact>
-								<Students1 requireAuth={RequireAuth} />
+								{/* <Students1 requireAuth={RequireAuth} /> */}
+								<NewStudent />
 							</Route>
+							<Route path="/new-parent" exact>
+								<Students1 requireAuth={RequireAuth} />
+								{/* <NewStudent /> */}
+							</Route>
+
+							<Route path="/student-details/student=:id" component={StudentDetails} />
+							{/* <Route path="/student-details/:student" >
+								<StudentDetails />
+							</Route> */}
 						</div>
 						: null
 					}

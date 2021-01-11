@@ -1,5 +1,6 @@
 import classes from './UIElements.module.scss';
 import { Close, ReportProblemOutlined, CheckCircleOutlined } from '@material-ui/icons'
+import Aux from '../../hoc/Aux';
 
 export const Alert = (props) => {
 	let classname = [classes.Alert];
@@ -52,3 +53,82 @@ export const FilterSelect = (props) => (
 		))}
 	</select>
 )
+
+export const FormInput = (props) => {
+	return (
+		<div className={classes.FormInput} >
+			<p>{props.label}{props.required ? ' *' : null}</p>
+			{
+				props.isSelect ?
+				<select onChange={props.onChange} required>
+					{
+					props.default? 
+					<option value={props.default.value} >{props.default.name}</option>
+					:
+					<option value={undefined} >Please select a {props.label}</option>
+					}
+					{
+					props.coll && props.coll.map((option, key) => (
+						<option key={key} value={option.value} >{option.name}</option>
+					))
+					}
+				</select>
+				:
+				<Aux>
+				{props.required ? 
+					props.default ? 
+						<input type={props.type} 
+							placeholder={props.label} 
+							value={props.default}
+							onChange={props.onChange} required/>
+						:
+						<input type={props.type} 
+							placeholder={props.label} 
+							onChange={props.onChange} required/>
+							: 
+							<input type={props.type} 
+							placeholder={props.label} 
+						onChange={props.onChange}/>
+				}
+				</Aux>	
+			}
+		</div>
+	)
+}
+
+export const ParentSelect = (props) => {
+	return (
+		<div className={classes.FormInput} >
+			<p>{props.label} *</p>
+			<select onChange={props.onChange} required>
+				{
+					props.default? 
+					<option value={props.default._id} >{props.default.lastName} {props.default.firstName}</option>
+					:
+					<option value={undefined} >Please select a parent</option>
+				}
+				{
+				props.default? 
+				props.coll && props.coll.map((option, key) => (
+					option._id !== props.default._id ?
+					<option key={key} value={option._id} >{option.lastName} {option.firstName}</option>
+					: null
+				))
+				:
+				props.coll && props.coll.map((option, key) => (
+					<option key={key} value={option._id} >{option.lastName} {option.firstName}</option>
+				))
+				}
+			</select> 
+		</div>
+	)
+}
+
+export const DateParser = (date) => {
+	let newDate = Intl.DateTimeFormat('en-US', {
+		year: 'numeric',
+		month: '2-digit',
+		day: '2-digit'}).format(Date.parse(date)).split("/");
+
+	return ([newDate[2], newDate[0], newDate[1]].join('-'))
+} 

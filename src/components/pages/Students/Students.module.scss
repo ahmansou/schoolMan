@@ -2,6 +2,12 @@
 	width: 100%;
 	height: 100vh;
 	overflow-y: auto;
+	&::-webkit-scrollbar {
+		width: 8px;
+	}
+	&::-webkit-scrollbar-thumb {
+		background-color: #13232a;
+	}
 	padding: 50px;
 	.Filters {
 		width: 100%;
@@ -36,20 +42,47 @@
 			}
 		}
 	}
+
+	.StudentsTitle {
+		display: flex;
+		justify-content: space-between;
+		& .StudentsNewStudent {
+			background-color: #f4a261;
+			border: none;
+			// width: 150px;
+			padding: 5px 20px;
+			color: white;
+			font-weight: bold;
+			font-size: 15px;
+			&:hover {
+				background-color: #F29040;
+			}
+		}
+	}
+
 	.StudentsList {
 		margin-top: 20px;
 		width: 100%;
-		height: max-content;	
+		height: max-content;
 		background-color: white;
 		padding: 20px;
 		padding-bottom: 120px;
 		overflow-y: auto;
+		transition: all .3s ease;
+		.StudentImage {
+			width: 60px;
+			height: 60px;
+			background-size: cover;
+			background-repeat: no-repeat;
+		}
 		.OptionToggle {
 			width: 20px;
 			cursor: pointer;
 			position: relative;
+			color: rgb(100, 100, 100);
+			transition: all .3s ease;
 			:hover {
-				
+				color: black;
 			}
 			.Actions {
 				background-color: white;
@@ -61,11 +94,25 @@
 				position: absolute;
 				top: 50px;
 				right: 0px;
+				transition: all .3s ease;
+				display: flex;
+				flex-direction: column;
 				.Action {
-					// background-color: green;
 					padding: 10px 20px;
+					transition: all .3s ease;
 					&:hover {
 						background-color: #F8F9FA;
+						text-decoration: none;
+					}
+					&:visited {
+						color: inherit;
+					}
+				}
+				.DeleteAction {
+					color: #E24D28;
+					&:hover {
+						background-color: #E24D28;
+						color: white;
 					}
 				}
 			}

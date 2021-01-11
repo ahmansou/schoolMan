@@ -51,3 +51,26 @@ export const colls = [
 	icon: <Settings />, to: 'account'},
 	{title: '', type: 'blank'},
 ]
+
+
+export const classArray = [
+	{value: 'SM', name: 'SM'},
+	{value: 'PC', name: 'PC'},
+	{value: 'SVT', name: 'SVT'}
+];
+export const groupArray =  [
+	{value: 'SM1', name: 'SM1'},
+	{value: 'SM2', name: 'SM2'},
+	{value: 'SM3', name: 'SM3'},
+	{value: 'SM4', name: 'SM4'},
+	{value: 'PC1', name: 'PC1'},
+	{value: 'PC2', name: 'PC2'},
+	{value: 'PC3', name: 'PC3'},
+	{value: 'SVT1', name: 'SVT1'},
+	{value: 'SVT2', name: 'SVT2'}
+]
+
+export const gender = [
+	{name: 'Female', value: 'F'},
+	{name: 'Male', value: 'M'}
+]

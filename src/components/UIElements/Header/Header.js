@@ -88,23 +88,24 @@ class Header extends Component {
 			<div className={classes.Header}>
 				<div className={classes.Icons} >
 					<Badge badgeContent={4} color="secondary">
-						<NotificationsNoneOutlined />
+						<NotificationsNoneOutlined className={classes.IconIcon} />
 					</Badge>
 				</div>
 				<div className={classes.Icons} >
 					<Badge badgeContent={100} color="secondary">
-						<ChatOutlined />
+						<ChatOutlined className={classes.IconIcon} />
 					</Badge>
 				</div>
 				<div className={classes.Icons} onClick={this.toggleProfileDrop} >
-						<AccountCircleOutlined />
+						<AccountCircleOutlined className={classes.IconIcon} />
 				</div>
-				<div className={[classes.Icons, classes.UserSection].join(' ')} onClick={this.toggleProfileDrop} >
-					<p>
+				<div className={[classes.UserSection].join(' ')} >
+					<p><strong>
 						{this.state.staff && this.state.staff.firstName + ' ' + this.state.staff.lastName}
 						{this.state.student && this.state.student.firstName + ' ' + this.state.student.lastName}
+					</strong><br/>
+					{token && token.token.username}
 					</p>
-					<p>{token && token.token.username}</p>
 				</div>
 				<Aux>
 					{token && this.state.profileDrop ? 

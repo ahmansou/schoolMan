@@ -16,24 +16,44 @@ $headerHeight : 60px;
 .Header {
 	height: $headerHeight;
 	width: 100%;
-	padding: 20px;
+	// padding: 20px;
+	padding-right: 20px;
 	background-color: #2A9D8F;
 	display: flex;
 	flex-direction: row;
 	justify-content: flex-end;
 	align-items: center;
+	box-sizing: border-box;
 	& .Icons {
 		margin: auto 20px;
 		color: white;
 		cursor: pointer;
+		height: 30px;
+		width: 30px;
+		& .IconIcon {
+			height: 100%;
+			width: 100%;
+		}
 	}
 	& .UserSection {
 		display: flex;
-		height: 100%;
+		height: $headerHeight;
 		flex-direction: column;
-		background-color: green;
+		margin: 0;
+		color: white;
+		margin-right: 20px;
+		// padding: 10px 0;
 		& p {
-			background-color: yellow;
+			margin: auto;
+			padding-top: 0;
+			width: 100%;
+			text-align: left;
+			line-height: 18px;
+			& strong {
+				padding-top: auto;
+				padding-bottom: 0;
+			}
+			// background-color: red;
 		}
 	}
 	& .ProfileDrop {
@@ -47,6 +67,7 @@ $headerHeight : 60px;
 		display: flex;
 		overflow: hidden;
 		flex-direction: column;
+		z-index: 99999;
 		& .ProfileDropAction {
 			& * {
 				margin: auto 10px;
