@@ -54,7 +54,7 @@
 }
 
 .BackDrop {
-	cursor: pointer;
+	// cursor: pointer;
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -103,5 +103,77 @@
 	& select {
 		color: rgb(100, 100, 100);
 		padding: 12px 20px;
+	}
+}
+
+
+.SearchComponent {
+	height: 100%;
+	display: flex;
+	z-index: 99999;
+	position: relative;
+	& input {
+		transition: all .2s ease;
+		background-color: #279185		;
+		// background-color: rgba(13, 99, 89, 0.3);
+		border: solid 1px #228176;
+		width: 300px;
+		margin: auto;
+		height: 50%;
+		padding: 20px;
+		color: white;
+		border: none;
+		&::placeholder{
+			// color: rgba(255, 255, 255, 0.342);
+			color: #1E7167;
+		}
+		&:focus {
+			// background-color: rgb(12, 94, 84);
+			outline: none;
+		}
+	}
+
+	& .SearchResult {
+		position: absolute;
+		top: 100%;
+		width: 100%;
+		max-height: 240px;
+		overflow-y: auto;
+		// background-color: white;
+		background: #fafafa;
+		display: flex;
+		flex-direction: column;
+		border: solid 1px #dbdbdb;
+    	-webkit-box-shadow: 0 0 5px rgba(0,0,0,.0975); 
+    	box-shadow: 0 0 5px rgba(0,0,0,.0975);
+		.Item {
+			transition: all .1s ease;
+			width: 100%;
+			border-bottom: solid 1px #dbdbdb;
+			padding: 10px 20px;
+			text-align: left;
+			text-decoration: none;
+			color: rgb(100, 100, 100);
+			&:-webkit-any-link {
+				color: rgb(100, 100, 100);
+			}
+			&:visited {
+				color: rgb(100, 100, 100);
+				text-decoration: none;
+			}
+			&:hover {
+				color: rgb(100, 100, 100);
+				text-decoration: none;
+				background: #f3f3f3;
+			}
+		}
+	}
+	& .SearchNoResult {
+		height: max-content;
+		& p {
+			margin: auto;
+			color: rgb(100, 100, 100);
+			padding: 10px 20px;
+		}
 	}
 }

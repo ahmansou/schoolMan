@@ -9,6 +9,7 @@ import NewStudent from '../pages/Students/NewStudent/NewStudent';
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Redirect, useRouteMatch } from 'react-router-dom';
 import StudentDetails from '../pages/Students/StudentDetails/StudentDetails';
+import Parents from '../pages/Parents/Parents';
 
 const RequireAuth = (props, activeOnlyWhenExact) => {
 	let match = useRouteMatch({
@@ -56,18 +57,16 @@ class Layout extends Component {
 								<Students requireAuth={RequireAuth} />
 							</Route>
 							<Route path="/new-student" exact>
-								{/* <Students1 requireAuth={RequireAuth} /> */}
 								<NewStudent />
 							</Route>
 							<Route path="/new-parent" exact>
 								<Students1 requireAuth={RequireAuth} />
-								{/* <NewStudent /> */}
+							</Route>
+							<Route path="/parents" exact>
+								<Parents />
 							</Route>
 
 							<Route path="/student-details/student=:id" component={StudentDetails} />
-							{/* <Route path="/student-details/:student" >
-								<StudentDetails />
-							</Route> */}
 						</div>
 						: null
 					}

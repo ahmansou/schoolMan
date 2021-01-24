@@ -13,7 +13,7 @@ import {
 	Settings,
  } from '@material-ui/icons';
 import { Badge } from '@material-ui/core';
-import { BackDrop } from '../UIElements';
+import { BackDrop, SearchComponent, SearchQuery } from '../UIElements';
 
 class Header extends Component {
 	state = {
@@ -86,6 +86,8 @@ class Header extends Component {
 			dropCls.push(classes.ProfileDropClosed);
 		return (
 			<div className={classes.Header}>
+				{/* <SearchQuery /> */}
+				<SearchComponent />
 				<div className={classes.Icons} >
 					<Badge badgeContent={4} color="secondary">
 						<NotificationsNoneOutlined className={classes.IconIcon} />
