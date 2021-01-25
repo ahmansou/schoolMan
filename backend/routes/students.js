@@ -51,6 +51,18 @@ router.route('/:id').get((req, res) => {
 		.catch(err => res.status(400).json('Error: ' + err));
 })
 
+router.route('/search/:searchQuery').get((req, res) => {
+	Student.find(
+		{$or:[
+			{"username": {"$regex" : req.params.searchQuery}},
+			{"firstName": {"$regex" : req.params.searchQuery}},
+			{"lastName": {"$regex" : req.params.searchQuery}}
+		]}
+		)
+	.then(students => res.json(students))
+	.catch(err => res.status(400).json('Error: ' + err));
+})
+
 router.route('/:id').delete((req, res) => {
 	Student.findByIdAndDelete(req.params.id)
 		.then(() => res.json('Student deleted'))

@@ -2,6 +2,7 @@ import classes from './UIElements.module.scss';
 import { Close, ReportProblemOutlined, CheckCircleOutlined } from '@material-ui/icons'
 import Aux from '../../hoc/Aux';
 import axios from 'axios';
+import me from '../../assets/me.jpeg';
 import { useEffect, useState } from 'react';
 import { Component } from 'react';
 import { Link } from 'react-router-dom';
@@ -149,7 +150,7 @@ export class SearchComponent extends Component {
 	search = async query => {
 		let token = JSON.parse(localStorage.getItem('authToken'));
 		// if (query === '') {
-		if (query.length < 2 || query === '') {
+		if (query.length < 1 || query === '') {
 			this.setState({ users: null });
 			return ;
 		}
@@ -210,9 +211,13 @@ export class SearchComponent extends Component {
 						{
 						this.state.users && this.state.users.length > 0 ?
 						this.state.users.map((user, key) => (
-							<a className={classes.Item}
+							<a key={key} className={classes.Item}
 							href={`student-details/student=${user._id}`} >
-								<strong>{user.username}</strong><br />{user.firstName} {user.lastName}</a>
+								<div className={classes.Img} style={{backgroundImage: `url(${me})`}} ></div>
+								<p>
+									<strong>{user.username}</strong><br />{user.firstName} {user.lastName}
+								</p>
+							</a>
 							))
 						: <p>No results found</p>
 						}

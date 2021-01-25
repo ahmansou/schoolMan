@@ -27,6 +27,7 @@ const usersRouter = require('./routes/users');
 const studentsRouter = require('./routes/students');
 const parentsRouter = require('./routes/parents');
 const staffRouter = require('./routes/staff');
+const groupRouter = require('./routes/group');
 
 
 
@@ -38,6 +39,7 @@ app.use('/students', withAuth, studentsRouter);
 app.use('/parents', withAuth, parentsRouter);
 app.use('/staff', withAuth, staffRouter);
 // app.use('/staff', staffRouter);
+app.use('/group', groupRouter);
 
 // app.get('/secret', withAuth, function(req, res) {
 // 	res.send('The password is potato');

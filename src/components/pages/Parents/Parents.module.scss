@@ -66,4 +66,51 @@
 		padding: 20px;
 		margin-top: 20px;
 	}
+
+	.ActionsWrapper {
+		position: relative;
+		.OptionToggle {
+			width: 20px;
+			cursor: pointer;
+			position: relative;
+			color: rgb(100, 100, 100);
+			transition: all .3s ease;
+			:hover {
+				color: black;
+			}
+		}
+		.Actions {
+			background-color: white;
+			color: rgb(100, 100, 100);
+			box-shadow: 0 0 15px hsla(0, 0, 40%, .5);
+			z-index: 99999;
+			width: 150px;
+			padding: 10px 0;
+			position: absolute;
+			top: 50px;
+			right: 0px;
+			transition: all .3s ease;
+			display: flex;
+			flex-direction: column;
+			.Action {
+				padding: 10px 20px;
+				transition: all .3s ease;
+				&:hover {
+					background-color: #F8F9FA;
+					text-decoration: none;
+				}
+				&:visited {
+					color: inherit;
+				}
+			}
+			.DeleteAction {
+				color: #E24D28;
+				&:hover {
+					background-color: #E24D28;
+					color: white;
+				}
+			}
+		}
+	}
+	
 }

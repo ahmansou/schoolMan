@@ -133,7 +133,7 @@
 		}
 	}
 
-	& .SearchResult {
+	& .SearchResult {	
 		position: absolute;
 		top: 100%;
 		width: 100%;
@@ -154,6 +154,7 @@
 			text-align: left;
 			text-decoration: none;
 			color: rgb(100, 100, 100);
+			display: flex;
 			&:-webkit-any-link {
 				color: rgb(100, 100, 100);
 			}
@@ -165,6 +166,21 @@
 				color: rgb(100, 100, 100);
 				text-decoration: none;
 				background: #f3f3f3;
+			}
+			& p {
+				margin: auto;
+				margin-left: 0;
+			}
+			.Img {
+				margin: auto;
+				margin-left: 0;
+				margin-right: 20px;
+				width: 50px;
+				height: 50px;
+				border-radius: 9in;
+				background-size: cover;
+				background-repeat: no-repeat;
+
 			}
 		}
 	}

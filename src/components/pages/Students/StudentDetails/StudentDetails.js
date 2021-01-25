@@ -62,7 +62,7 @@ class StudentDetails extends Component {
 				</div>
 				<div className={classes.StudentDetailsMain} >
 					<div className={classes.StudentDetailsPicture} >
-						<img src={me} alt=''/>           
+						{/* <img src={me} alt=''/>            */}
 					</div>
 					<div className={classes.StudentDetailsInfo} >
 						<div className={classes.InfoHeader} >

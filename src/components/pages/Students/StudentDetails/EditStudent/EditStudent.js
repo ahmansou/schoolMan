@@ -43,8 +43,24 @@ class EditStudent extends Component {
 		}
 	}
 
+	getGroups = () => {
+		let token = JSON.parse(localStorage.getItem('authToken'));
+		if (token) {
+			axios.get('http://localhost:5000/group/', {
+				headers: {
+					'Test-Header': 'test-value',
+					'authToken': token.token.authToken,
+					'userType': token.token.userType
+				}
+			})
+			.then(res => this.setState({groups: res.data}))
+			.catch(err => console.error(err.message));
+		}
+	}
+
 	componentDidMount() {
 		this.getParents();
+		this.getGroups();
 	}
 
 	onSubmit = (e) => {
@@ -144,8 +160,11 @@ class EditStudent extends Component {
 						default={{value: this.state.classId, name: this.state.classId}}
 						onChange={(e) => this.setState({classId: e.target.value})}  />
 
+					{
+						console.log('groups: ', this.state.groups)
+					}
 					<FormInput type='text' label='Group' required={true}
-						isSelect={true} coll={groupArray}
+						isSelect={true} coll={this.state.groups}
 						default={{value: this.state.groupId, name: this.state.groupId}}
 						onChange={(e) => this.setState({groupId: e.target.value})}  />
 

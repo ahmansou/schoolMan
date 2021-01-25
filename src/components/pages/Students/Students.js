@@ -66,6 +66,7 @@ class Students extends Component {
 	state = {
 		students: [],
 		action: 0,
+		searchQuery: '',
 		classArray: [
 			{value: 'SM', name: 'SM'},
 			{value: 'PC', name: 'PC'},
@@ -142,7 +143,7 @@ class Students extends Component {
 					<div className={classes.Filters} >
 						<FilterSelect itemArray={this.state.classArray} msg='class' />
 						<FilterSelect itemArray={this.state.groupArray} msg='group' />
-						<input type="text" placeholder="Search by name" />
+						<input type="text" placeholder="Search by name" onChange={(e) => this.setState({searchQuery: e.target.value})}/>
 						<button>Search</button>
 					</div>
 					<table className="table">
@@ -163,9 +164,14 @@ class Students extends Component {
 						<tbody>
 							{
 							this.state.students && this.state.students.map((student, key) => (
+
+								student.firstName.includes(this.state.searchQuery)
+							|| student.lastName.includes(this.state.searchQuery)
+							|| student.username.includes(this.state.searchQuery) ?
 								<Student key={key} 
 								deleteStudent={this.deleteStudent}
 								student={student} />
+								: null
 							))
 							}
 							{/* {
