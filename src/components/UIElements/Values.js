@@ -4,6 +4,8 @@ export const colls = [
 	{title: 'Students', type: 'toggle', items: [
 		{name: 'All students', to: 'students'},
 		{name: 'Add new student', to: 'new-student'},
+		{name: 'All groups', to: 'groups'},
+		{name: 'Add new group', to: 'new-group'},
 	], icon: <SupervisorAccount />},
 	{title: 'Parents', type: 'toggle', items: [
 		{name: 'All parents', to: 'parents'},

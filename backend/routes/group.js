@@ -19,4 +19,10 @@ router.route('/add').post((req, res) => {
 		.catch(err => res.status(400).json(`Err: ${err}`));
 })
 
+router.route('/:id').delete((req, res) => {
+	Group.findByIdAndDelete(req.params.id)
+		.then(() => res.json('Group deleted'))
+		.catch(err => res.status(400).json(`Err: ${err}`));
+})
+
 module.exports = router;

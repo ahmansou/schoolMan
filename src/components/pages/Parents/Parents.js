@@ -58,9 +58,9 @@ const Parents = () => {
 
 			{/* <SearchComponent /> */}
 			<div className={classes.ParentsTitle} >
-					<h4>Parents list</h4>
-					<Link className={classes.ParentsNewStudent} to='/new-student'>Add new Student</Link>
-				</div>
+				<h4>Parents list</h4>
+				<Link className={classes.ParentsNewStudent} to='/new-student'>Add new Student</Link>
+			</div>
 			<div className={classes.ParentsList} >
 				<h4>All parents</h4>
 				<div className={classes.Filters} >

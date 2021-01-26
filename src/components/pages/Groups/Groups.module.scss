@@ -1,0 +1,103 @@
+.Groups {
+	width: 100%;
+	height: 100vh;
+	overflow-y: auto;
+	&::-webkit-scrollbar {
+		width: 8px;
+	}
+	&::-webkit-scrollbar-thumb {
+		background-color: #13232a;
+	}
+	padding: 50px;
+	display: grid;
+	grid-template-columns: 1fr 2fr;
+	grid-gap: 20px;
+
+	.GroupsTitle {
+		display: flex;
+		justify-content: space-between;
+		& .NewGroups {
+			background-color: #f4a261;
+			border: none;
+			// width: 150px;
+			padding: 5px 20px;
+			color: white;
+			font-weight: bold;
+			font-size: 15px;
+			&:hover {
+				background-color: #F29040;
+			}
+		}
+	}
+	input[type = text], input[type = number] {
+		background-color: #EFEFEF;
+		border: none;
+		background-color: #EFEFEF;
+		transition: all .2s ease;
+		width: 300px;
+		padding: 5px 20px;
+		&:focus {
+			outline: none;
+			background-color: #dddddd;
+		}
+	}
+
+	input[type = submit] {
+		background-color: #f4a261;
+		border: none;
+		width: 150px;
+		padding: 5px 20px;
+		color: white;
+		font-weight: bold;
+		font-size: 15px;
+		&:hover {
+			background-color: #F29040;
+		}
+	}
+
+	.AddGroup {
+		background-color: white;
+		padding: 20px;
+		height: max-content;
+		
+		.NewGroupForm {
+			display: flex;
+			flex-direction: column;
+			margin-top: 20px;
+			& * {
+				margin-top: 20px;
+			}
+		}
+	}
+
+	.GroupsList {
+		background-color: white;
+		padding: 20px;
+
+		.Filters {
+			width: 100%;
+			padding: 20px 0;
+			display: flex;
+			flex-direction: row;
+			& * {
+				margin-right: 20px;
+			}
+		}
+	}
+
+	.Actions {
+		display: flex;
+		& .Action {
+			margin: auto 5px;
+			padding: 5px;
+			color: white;
+			cursor: pointer;
+		}
+		& .Remove {
+			background-color: #e22856;
+		}
+		& .Edit {
+			background-color: #64a54e;
+		}
+	}
+}

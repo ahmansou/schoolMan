@@ -4,12 +4,12 @@ import Profile from '../pages/Profile/Profile';
 import SideBar from '../UIElements/SideBar/SideBar';
 import Header from '../UIElements/Header/Header';
 import Students from '../pages/Students/Students';
-import Students1 from '../pages1/Students/Students';
 import NewStudent from '../pages/Students/NewStudent/NewStudent';
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Redirect, useRouteMatch } from 'react-router-dom';
 import StudentDetails from '../pages/Students/StudentDetails/StudentDetails';
 import Parents from '../pages/Parents/Parents';
+import Groups from '../pages/Groups/Groups';
 
 const RequireAuth = (props, activeOnlyWhenExact) => {
 	let match = useRouteMatch({
@@ -51,16 +51,16 @@ class Layout extends Component {
 						<div className={classes.Main} >
 							{token ? <Header /> : null}
 							<Route path="/profile" exact>
-								<Profile requireAuth={RequireAuth} />
+								<Profile />
 							</Route>
 							<Route path="/students" exact>
-								<Students requireAuth={RequireAuth} />
+								<Students />
+							</Route>
+							<Route path="/groups" exact>
+								<Groups />
 							</Route>
 							<Route path="/new-student" exact>
 								<NewStudent />
-							</Route>
-							<Route path="/new-parent" exact>
-								<Students1 requireAuth={RequireAuth} />
 							</Route>
 							<Route path="/parents" exact>
 								<Parents />
