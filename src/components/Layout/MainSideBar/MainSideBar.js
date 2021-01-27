@@ -1,4 +1,4 @@
-// import { useState } from 'react';
+import { useState } from 'react';
 import SearchComponent from '../../UIElements/SearchComponent/SearchComponent';
 import { MainTitle } from '../../UIElements/UIElements';
 import classes from './MainSideBar.module.scss';
@@ -35,18 +35,22 @@ const BottomMenu = () => {
 }
 
 const MainSideBar = () => {
-	// const [state, setState] = useState({
-	// 	closeSideBar: false
-	// });
-
+	let itemState = [];
+	for (let i = 0; i < colls.length; i++)
+		itemState.push({state: false, title :colls[i].title, active: false})
+	console.log('states',itemState);
+	const [state, setState] = useState({
+		closeSideBar: false,
+		itemStates: itemState
+	});
 
 	return (
 		<div className={classes.MainSideBar} >
 			<MainTitle />
 			<SearchComponent />
 			<div className={classes.MainSection} >
-			{colls && colls.map((item, key) => (
-				<MainSideBarItem key={key} item={item} />
+			{colls && colls.map((item, index) => (
+				<MainSideBarItem index={index} state={state} setState={setState}  item={item} />
 			))}
 			</div>
 			<BottomMenu />

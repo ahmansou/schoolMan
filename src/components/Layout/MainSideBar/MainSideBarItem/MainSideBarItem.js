@@ -2,6 +2,7 @@ import { KeyboardArrowDownOutlined, KeyboardArrowUpOutlined } from '@material-ui
 import { useEffect, useState } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 import Aux from '../../../../hoc/Aux';
+import { colls } from '../../../UIElements/Values';
 import classes from './MainSideBarItem.module.scss';
 
 const HotLink = (props, activeOnlyWhenExact) => {
@@ -20,7 +21,7 @@ const HotLink = (props, activeOnlyWhenExact) => {
 	}
 	
 	useEffect(() => {
-		if (match)
+		if (match && link.type !== 'direct')
 			props.setShow();
 	}, [])
 
@@ -45,15 +46,35 @@ const MainSideBarItem = (props) => {
 		showItems: false,
 		active: false
 	});
-
+	
+	
 	useEffect(() => {
-		if (state.active)
+		if (state.active) {
 			setState({...state, showItems: true});
+			let newStates = [...props.state.itemStates];
+			newStates[props.index].state = true;
+			for (let i = 0; i < colls.length; i++)
+				if (i !== props.index)
+					newStates[i].state = false;
+			props.setState({...props.state, itemStates: newStates});
+		}
 	}, [state.active]);
+
+	const menuHandler = () => {
+		setState({...state, showItems: !state.showItems});
+		let newStates = [...props.state.itemStates];
+		for (let i = 0; i < colls.length; i++)
+			if (i !== props.index)
+				newStates[i].state = false;
+		newStates[props.index].state = !newStates[props.index].state;
+		props.setState({...props.state, itemStates: newStates});
+	}
+	
+	console.log('itemstate: ', props.state.itemStates[props.index]);
 
 	let menuClass = classes.MainSideBarItemMenu;
 	let toggleActive = classes.MainSideBarItemToggle;
-	if (state.showItems) {
+	if (props.state.itemStates[props.index].state) {
 		menuClass = [classes.MainSideBarItemMenu, classes.MainSideBarItemMenuOpen].join(' ');
 	}
 	if (state.active) {
@@ -66,13 +87,15 @@ const MainSideBarItem = (props) => {
 		{
 		item.type === 'toggle' ?
 			<Aux>
-			<div className={toggleActive} onClick={() => setState({...state, showItems: !state.showItems})}>
+			<div className={toggleActive} onClick={menuHandler}>
 				<p>{item.icon}</p>
 				<p className={classes.ItemTitle} >{item.title}</p>
 				{item.type === 'toggle' ? 
-					!state.showItems ? 
+					props.state.itemStates[props.index].state ? 
+					<KeyboardArrowUpOutlined className={classes.ToggleArrow} /> 
+					:
 					<KeyboardArrowDownOutlined className={classes.ToggleArrow} /> 
-					: <KeyboardArrowUpOutlined className={classes.ToggleArrow} /> 
+					
 				: null}
 			</div>
 			<div className={menuClass}>
@@ -82,7 +105,7 @@ const MainSideBarItem = (props) => {
 			</div>
 		</Aux> 
 		: item.type === 'direct' ?
-			<HotLink to={item.to} link={item} />
+			<HotLink  to={item.to} link={item} />
 		: null
 		}
 		</div>
