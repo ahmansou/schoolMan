@@ -106,90 +106,31 @@
 	}
 }
 
-
-.SearchComponent {
-	height: 100%;
+.MainTitle {
+	font-family: sans-serif;
+	font-family: "Google Sans",Arial,sans-serif;
+	width:100%;
 	display: flex;
-	z-index: 99999;
-	position: relative;
-	& input {
-		transition: all .2s ease;
-		background-color: #279185		;
-		// background-color: rgba(13, 99, 89, 0.3);
-		border: solid 1px #228176;
-		width: 300px;
-		margin: auto;
-		height: 50%;
-		padding: 20px;
-		color: white;
-		border: none;
-		&::placeholder{
-			// color: rgba(255, 255, 255, 0.342);
-			color: #1E7167;
-		}
+	flex-direction: column;
+	padding: 20px;
+	line-height: 15px;
+	text-decoration: none;
+	.MainTxt {
+		text-transform: uppercase;
+		color: rgb(125, 125, 125);
+		font-size: 15	px;
+		font-weight: 500;
+		letter-spacing: 7px;
+	}
+	.SubTxt {
+		font-size: 25px;
+		font-weight: 700;
+		color: rgb(49, 51, 56);
 		&:focus {
-			// background-color: rgb(12, 94, 84);
 			outline: none;
 		}
-	}
-
-	& .SearchResult {	
-		position: absolute;
-		top: 100%;
-		width: 100%;
-		max-height: 240px;
-		overflow-y: auto;
-		// background-color: white;
-		background: #fafafa;
-		display: flex;
-		flex-direction: column;
-		border: solid 1px #dbdbdb;
-    	-webkit-box-shadow: 0 0 5px rgba(0,0,0,.0975); 
-    	box-shadow: 0 0 5px rgba(0,0,0,.0975);
-		.Item {
-			transition: all .1s ease;
-			width: 100%;
-			border-bottom: solid 1px #dbdbdb;
-			padding: 10px 20px;
-			text-align: left;
+		&:hover {
 			text-decoration: none;
-			color: rgb(100, 100, 100);
-			display: flex;
-			&:-webkit-any-link {
-				color: rgb(100, 100, 100);
-			}
-			&:visited {
-				color: rgb(100, 100, 100);
-				text-decoration: none;
-			}
-			&:hover {
-				color: rgb(100, 100, 100);
-				text-decoration: none;
-				background: #f3f3f3;
-			}
-			& p {
-				margin: auto;
-				margin-left: 0;
-			}
-			.Img {
-				margin: auto;
-				margin-left: 0;
-				margin-right: 20px;
-				width: 50px;
-				height: 50px;
-				border-radius: 9in;
-				background-size: cover;
-				background-repeat: no-repeat;
-
-			}
-		}
-	}
-	& .SearchNoResult {
-		height: max-content;
-		& p {
-			margin: auto;
-			color: rgb(100, 100, 100);
-			padding: 10px 20px;
 		}
 	}
 }

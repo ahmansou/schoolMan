@@ -2,25 +2,16 @@ import classes from './Layout.module.scss';
 import Signin from '../pages/Signin/Signin';
 import Profile from '../pages/Profile/Profile';
 import SideBar from '../UIElements/SideBar/SideBar';
-import Header from '../UIElements/Header/Header';
+// import Header from '../UIElements/Header/Header';
 import Students from '../pages/Students/Students';
 import NewStudent from '../pages/Students/NewStudent/NewStudent';
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Redirect, useRouteMatch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import StudentDetails from '../pages/Students/StudentDetails/StudentDetails';
 import Parents from '../pages/Parents/Parents';
 import Groups from '../pages/Groups/Groups';
+import MainSideBar from './MainSideBar/MainSideBar';
 
-const RequireAuth = (props, activeOnlyWhenExact) => {
-	let match = useRouteMatch({
-		path: props.to,
-		exact: activeOnlyWhenExact
-	  });
-	// if (!match && props.username === undefined)
-	if (!match)
-		window.location = '/sign-in';
-	return false;
-}
 
 class Layout extends Component {
 	state = {
@@ -45,11 +36,12 @@ class Layout extends Component {
 			<Router>
 				{!token ? <Redirect to="/sign-in" /> : null}
 				<div className={classes.Layout} >
-					{token ? <SideBar /> : null}
+					{/* {token ? <SideBar /> : null} */}
+					{token ? <MainSideBar /> : null}
 					{
 						token ?
 						<div className={classes.Main} >
-							{token ? <Header /> : null}
+							{/* {token ? <Header /> : null} */}
 							<Route path="/profile" exact>
 								<Profile />
 							</Route>

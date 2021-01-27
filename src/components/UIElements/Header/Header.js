@@ -13,7 +13,8 @@ import {
 	Settings,
  } from '@material-ui/icons';
 import { Badge } from '@material-ui/core';
-import { BackDrop, SearchComponent, SearchQuery } from '../UIElements';
+import { BackDrop, SearchQuery } from '../UIElements';
+import SearchComponent from '../SearchComponent/SearchComponent';
 
 class Header extends Component {
 	state = {

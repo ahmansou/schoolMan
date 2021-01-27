@@ -1,0 +1,48 @@
+
+.MainSideBar {
+	background-color: white;
+	width: 370px;
+	height: 100vh;
+	box-sizing: border-box;
+	border-right: solid 1px #dbdbdb;
+	display: flex;
+	flex-direction: column;
+
+	.MainSection {
+		width: 100%;
+		padding: 10px 20px;
+		display: flex;
+		// background-color: red;
+		flex-direction: column;
+		height: calc(100% - 70px);
+		overflow-y: auto;
+		overflow-x: hidden;
+	}
+
+	.BottomMenu {
+		margin: auto;
+		margin-bottom: 0;
+		background-color: white;
+		border-top: solid 1px #dbdbdb;
+		height: 60px;
+		width: 90%;
+		display: flex;
+		flex-direction: row;
+
+		.BottomMenuItem {
+			margin: auto;
+			cursor: pointer;
+			padding: 5px 10px;
+			&:hover {
+				border-radius: 3px;
+				background-color: #f4f5f8;
+			}
+		}
+
+		.BottomMenuSeparator {
+			width: 20px;
+			height: 100%;
+		}
+	}
+}
+
