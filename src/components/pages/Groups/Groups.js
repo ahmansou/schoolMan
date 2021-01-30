@@ -1,7 +1,7 @@
 import classes from './Groups.module.scss';
 import { useDataAdd, GetAllData, useDataRemove } from '../../../hooks/useData';
 import { useEffect, useState } from 'react';
-import { Alert } from '../../UIElements/UIElements';
+import { Alert, FilterByValue } from '../../UIElements/UIElements';
 import { Delete, Edit } from '@material-ui/icons';
 
 const Group = (props) => {
@@ -102,8 +102,7 @@ const Groups = () => {
 			<div className={classes.GroupsList} >
 				<h4>All groups</h4>
 				<div className={classes.Filters} >
-					<input type="text" placeholder="Search by name" 
-						onChange={(e) => setState({...state, searchQuery: e.target.value})} />
+					<FilterByValue setState={setState} state={state} />
 				</div>
 				{
 				state.removed === 1 ?
@@ -113,13 +112,13 @@ const Groups = () => {
 				: null
 				}
 				<table className="table">
-					<thead>
+					<tbody>
+					<tr>
 						<th scope="col">Name</th>
 						<th scope="col">Number of students</th>
 						<th scope="col">Year</th>
 						<th scope="col"></th>
-					</thead>
-					<tbody>
+					</tr>
 						{docs && docs.map((doc, key) =>
 							doc.name.toLowerCase().includes(state.searchQuery.toLowerCase()) ?
 							<Group key={key} doc={doc} removeHandler={RemoveHandler} />

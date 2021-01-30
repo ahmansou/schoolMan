@@ -1,22 +1,30 @@
 
 .MainSideBar {
 	background-color: white;
-	width: 370px;
+	width: 300px;
 	height: 100vh;
 	box-sizing: border-box;
 	border-right: solid 1px #dbdbdb;
 	display: flex;
 	flex-direction: column;
+	transition: all .2s ease;
+
+	.TitleSection {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+	}
 
 	.MainSection {
 		width: 100%;
-		padding: 10px 20px;
+		padding: 10px 10px;
 		display: flex;
 		// background-color: red;
 		flex-direction: column;
 		height: calc(100% - 70px);
-		overflow-y: hidden;
+		overflow-y: auto;
 		overflow-x: hidden;
+		transition: all .2s ease;
 	}
 
 	.BottomMenu {
@@ -25,24 +33,129 @@
 		background-color: white;
 		border-top: solid 1px #dbdbdb;
 		height: 60px;
-		width: 90%;
+		width: 95%;
 		display: flex;
 		flex-direction: row;
+		transition: all .2s ease;
 
 		.BottomMenuItem {
 			margin: auto;
 			cursor: pointer;
+			// height: 40px;
+			// width: 50px;
+			// background-color: red;
 			padding: 5px 10px;
+			box-sizing: border-box;
+			display: flex;
+			color: black;
+			position: relative;
+			& * {
+				margin: auto;
+				text-decoration: none;
+				color: black;
+				width: 22px;
+			}
 			&:hover {
 				border-radius: 3px;
 				background-color: #f4f5f8;
+				.HoverInfo {
+					display: block;
+				}
+			}
+			.HoverInfo {
+				display: none;
+				width: max-content;
+				position: absolute;
+				top: -40px;
+				padding: 5px 10px;
+				border-radius: 3px;
+				background-color: black;
+				color: white;
+				font-size: 13px;
+				// font-weight: 400;
+				left: 0;
+				&::before {
+					content: '';
+					position: absolute;
+					bottom: -14px;
+					left: 14px;
+					border: 7px transparent solid;
+					border-top-color: black;
+				}
 			}
 		}
 
 		.BottomMenuSeparator {
 			width: 20px;
-			height: 100%;
+			height: 10px;
+		}
+	}
+
+	.MainSectionMiniHidden {
+		display: none;
+	}
+
+	.MainSectionMini {
+		padding-top: 20px;
+		box-sizing: border-box;
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		// padding: 10px;
+		.MainSectionMiniItem {
+			margin: auto;
+			// background-color: red;
+			// border: solid red 1px;
+			padding: 10px;
+			display: flex;
+			cursor: pointer;
+			border-radius: 3px;
+			// height: 60px;
+			// width: 60px;
+			& * {
+				margin: auto;
+			}
 		}
 	}
 }
 
+.MainSideBarClosed {
+	width: 60px;
+	
+	.BottomMenu {
+		flex-direction: column;
+		height: auto;
+		padding-top: 10px;
+		padding-bottom: 10px;
+	}
+
+	.MainSectionClosed {
+		display: none;
+	}
+
+	.TitleSection {
+		display: none;
+	}
+
+	&:hover {
+		width: 300px;
+
+		.BottomMenu {
+			flex-direction: row;
+			height: 60px;
+			padding: 0;
+		}
+
+		.MainSectionClosed {
+			display: flex;
+		}
+
+		.MainSectionMini {
+			display: none;
+		}
+		
+		.TitleSection {
+			display: flex;
+		}
+	}
+}

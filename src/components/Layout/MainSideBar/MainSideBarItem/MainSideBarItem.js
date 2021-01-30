@@ -21,20 +21,21 @@ const HotLink = (props, activeOnlyWhenExact) => {
 	}
 	
 	useEffect(() => {
-		if (match && link.type !== 'direct')
+		if (match && props.type !== 'blank')
 			props.setShow();
-	}, [])
+	}, []);
 
 	return (
 		<Aux>
 		{
-			link.type === 'direct' ?
+			props.type === 'direct' ?
 			<Link className={itemClassDirect} to={link.to} >
 				<p>{link.icon}</p>
+				{/* {match ? 'y' : 'n'} */}
 				<p className={classes.ItemTitle} >{link.title}</p>
 			</Link>
 			:
-			<Link className={itemClass} to={link.to} >{link.name}</Link>
+			<Link className={itemClass} to={link.to} onClick={props.setShow} >{link.name}</Link>
 		}
 		</Aux>
 	)
@@ -52,10 +53,10 @@ const MainSideBarItem = (props) => {
 		if (state.active) {
 			setState({...state, showItems: true});
 			let newStates = [...props.state.itemStates];
-			newStates[props.index].state = true;
 			for (let i = 0; i < colls.length; i++)
-				if (i !== props.index)
-					newStates[i].state = false;
+			if (i !== props.index)
+				newStates[i].state = false;
+			newStates[props.index].state = true;
 			props.setState({...props.state, itemStates: newStates});
 		}
 	}, [state.active]);
@@ -69,24 +70,18 @@ const MainSideBarItem = (props) => {
 		newStates[props.index].state = !newStates[props.index].state;
 		props.setState({...props.state, itemStates: newStates});
 	}
-	
-	console.log('itemstate: ', props.state.itemStates[props.index]);
 
 	let menuClass = classes.MainSideBarItemMenu;
 	let toggleActive = classes.MainSideBarItemToggle;
-	if (props.state.itemStates[props.index].state) {
-		menuClass = [classes.MainSideBarItemMenu, classes.MainSideBarItemMenuOpen].join(' ');
-	}
-	if (state.active) {
-		toggleActive = [classes.MainSideBarItemToggle, classes.MainSideBarItemToggleActive].join(' ');
-	}
 	
+	if (props.state.itemStates[props.index].state)
+		menuClass = [classes.MainSideBarItemMenu, classes.MainSideBarItemMenuOpen].join(' ');
 
 	return (
 		<div className={classes.MainSideBarItem} >
 		{
 		item.type === 'toggle' ?
-			<Aux>
+		<Aux>
 			<div className={toggleActive} onClick={menuHandler}>
 				<p>{item.icon}</p>
 				<p className={classes.ItemTitle} >{item.title}</p>
@@ -100,12 +95,16 @@ const MainSideBarItem = (props) => {
 			</div>
 			<div className={menuClass}>
 			{item.items && item.items.map((link, key) => (
-				<HotLink to={link.to} link={link} key={key} setShow={() => setState({...state, active: true})} />
+				<HotLink itemState={props.state.itemStates[props.index].state} to={link.to} link={link} key={key} 
+				type={item.type}
+				setShow={() => setState({...state, active: true})} 
+				setHide={() => setState({...state, active: false})} 
+				/>
 			))}
 			</div>
 		</Aux> 
 		: item.type === 'direct' ?
-			<HotLink  to={item.to} link={item} />
+			<HotLink to={item.to} link={item} setShow={() => setState({...state, active: true})} type='direct'/>
 		: null
 		}
 		</div>

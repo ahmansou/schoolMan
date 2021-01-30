@@ -146,3 +146,10 @@ export const MainTitle = () => {
 		</div>
 	)
 }
+
+export const FilterByValue = (props) => {
+	return (
+		<input className={classes.FilterByValue} type="text" placeholder="Search by name" 
+			onChange={(e) => props.setState({...props.state, searchQuery: e.target.value})} />
+	)
+}

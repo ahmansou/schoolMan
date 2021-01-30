@@ -3,7 +3,7 @@ import axios from 'axios';
 import React, { Component, useState } from 'react';
 import { Link, Route } from 'react-router-dom';
 import Aux from '../../../hoc/Aux';
-import { Alert, BackDrop, FilterSelect } from '../../UIElements/UIElements';
+import { Alert, BackDrop, FilterByValue, FilterSelect } from '../../UIElements/UIElements';
 import classes from './Students.module.scss';
 import pp from '../../../assets/me.jpeg';
 
@@ -141,10 +141,11 @@ class Students extends Component {
 				<div className={classes.StudentsList} >
 					<h4>All students</h4>
 					<div className={classes.Filters} >
-						<FilterSelect itemArray={this.state.classArray} msg='class' />
+						{/* <FilterByValue setState={this.setState} state={this.state} />	 */}
+						{/* <FilterSelect itemArray={this.state.classArray} msg='class' />
 						<FilterSelect itemArray={this.state.groupArray} msg='group' />
 						<input type="text" placeholder="Search by name" onChange={(e) => this.setState({searchQuery: e.target.value})}/>
-						<button>Search</button>
+						<button>Search</button> */}
 					</div>
 					<table className="table">
 						<thead>

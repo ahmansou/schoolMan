@@ -1,14 +1,6 @@
 .Groups {
 	width: 100%;
-	height: 100vh;
-	overflow-y: auto;
-	&::-webkit-scrollbar {
-		width: 8px;
-	}
-	&::-webkit-scrollbar-thumb {
-		background-color: #13232a;
-	}
-	padding: 50px;
+	height: auto;
 	display: grid;
 	grid-template-columns: 1fr 2fr;
 	grid-gap: 20px;
@@ -19,7 +11,6 @@
 		& .NewGroups {
 			background-color: #f4a261;
 			border: none;
-			// width: 150px;
 			padding: 5px 20px;
 			color: white;
 			font-weight: bold;
@@ -29,32 +20,8 @@
 			}
 		}
 	}
-	input[type = text], input[type = number] {
-		background-color: #EFEFEF;
-		border: none;
-		background-color: #EFEFEF;
-		transition: all .2s ease;
-		width: 300px;
-		padding: 5px 20px;
-		&:focus {
-			outline: none;
-			background-color: #dddddd;
-		}
-	}
 
-	input[type = submit] {
-		background-color: #f4a261;
-		border: none;
-		width: 150px;
-		padding: 5px 20px;
-		color: white;
-		font-weight: bold;
-		font-size: 15px;
-		&:hover {
-			background-color: #F29040;
-		}
-	}
-
+	
 	.AddGroup {
 		background-color: white;
 		border: solid 1px #dbdbdb;
@@ -66,6 +33,31 @@
 			display: flex;
 			flex-direction: column;
 			margin-top: 20px;
+			input[type = text], input[type = number] {
+				background-color: #EFEFEF;
+				border: none;
+				background-color: #EFEFEF;
+				transition: all .2s ease;
+				// width: 300px;
+				padding: 5px 20px;
+				&:focus {
+					outline: none;
+					background-color: #dddddd;
+				}
+			}
+		
+			input[type = submit] {
+				background-color: #f4a261;
+				border: none;
+				// width: 150px;
+				padding: 5px 20px;
+				color: white;
+				font-weight: bold;
+				font-size: 15px;
+				&:hover {
+					background-color: #F29040;
+				}
+			}
 			& * {
 				width: 100%;
 				margin-top: 20px;
@@ -82,11 +74,6 @@
 		.Filters {
 			width: 100%;
 			padding: 20px 0;
-			display: flex;
-			flex-direction: row;
-			& * {
-				margin-right: 20px;
-			}
 		}
 	}
 

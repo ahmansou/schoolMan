@@ -1,17 +1,14 @@
 import classes from './Parents.module.scss';
-import { useState } from 'react';
-import { useData, useDataGetOne } from '../../../hooks/useData';
+import { useEffect, useState } from 'react';
+import { GetAllData, useData, useDataRemove } from '../../../hooks/useData';
 import Aux from '../../../hoc/Aux';
 import { Link } from 'react-router-dom';
-import { BackDrop, DateParser } from '../../UIElements/UIElements';
-import { MoreVert } from '@material-ui/icons';
+import { Alert, DateParser, FilterByValue } from '../../UIElements/UIElements';
+import { Delete, RemoveRedEye } from '@material-ui/icons';
 
 const Parent = (props) => {
 	const parent = props.doc;
-	const [state, setState] = useState({
-		showAction: false
-	})
-
+	
 	return (
 		<tr>
 			<td>{parent.nid}</td>
@@ -23,52 +20,58 @@ const Parent = (props) => {
 			<td>{parent.homePhone}</td>
 			<td>{parent.gender === 'M' ? 'Male' : 'Female'}</td>
 			<td>{DateParser(parent.dateOfBirth)}</td>
-			<td className={classes.ActionsWrapper}>
-				<div className={classes.OptionToggle} onClick={() => setState({...state, showAction: !state.showAction})} >
-					<MoreVert />
-				</div>
-				{
-				state.showAction ? 
-				<Aux>
-					<BackDrop onClick={() => setState({...state, showAction: false})} />
-					<div className={classes.Actions} >
-						<Link className={classes.Action} 
-						to={{pathname: `parent-details/parent_id=${parent._id}`}}
-						>View details</Link>
-						<div className={[classes.Action, classes.DeleteAction].join(' ')} 
-							onClick={() => this.props.deleteStudent(this.props.student._id)} >Delete</div>
-					</div>
-				</Aux>
-				: null
-				}
+			<td className={classes.Actions}>
+				<Link className={[classes.Action, classes.Edit].join(' ')} 
+					to={{pathname: `parent-details/parent_id=${parent._id}`}}><RemoveRedEye /></Link>
+				<div className={[classes.Action, classes.Remove].join(' ')}
+					onClick={() => props.removeHandler(parent._id)} ><Delete /></div>
 			</td>
 		</tr>
 	)
 }
 
 const Parents = () => {
-	const { docs } = useData('parents');
-
 	const [state, setState] = useState({
 		searchQuery: '',
+		removed: 0,
 	})
 
+	const [docs, setDocs] = useState([]);
+
+	useEffect(() => {
+		GetAllData('parents', setDocs);
+		console.log(docs);
+	}, [])
+
+	const RemoveHandler = async (id) => {
+		let res = await useDataRemove('parents', id);
+		console.log('resdel', res);
+		if (res.status === 200) {
+			setState({...state, removed: 1})
+			setDocs(docs.filter(el => el._id !== id));
+		}
+		else
+			setState({...state, removed: -1})
+	}
+	
 	return (
 		<div className={classes.Parents} >
-
-			{/* <SearchComponent /> */}
 			<div className={classes.ParentsTitle} >
 				<h4>Parents list</h4>
-				<Link className={classes.ParentsNewStudent} to='/new-student'>Add new Student</Link>
+				<Link className={classes.NewParent} to='/new-student'>Add new Student</Link>
 			</div>
 			<div className={classes.ParentsList} >
 				<h4>All parents</h4>
 				<div className={classes.Filters} >
-					<input type="text" placeholder="Search by name" 
-						onChange={(e) => setState({...state, searchQuery: e.target.value})} />
-					{/* <button>Search</button> */}
-					{/* <p>{state.searchQuery}</p> */}
+					<FilterByValue setState={setState} state={state} />
 				</div>
+				{
+				state.removed === 1 ?
+					<Alert alert='success' onClick={() => setState({...state, removed: 0})} >Group remove successfuly</Alert>
+				: state.removed === -1 ?
+					<Alert alert='fail' onClick={() => setState({...state, removed: 0})} >Couldn't remove group</Alert>
+				: null
+				}
 				<table className="table">
 					<thead>
 						<th scope="col">Nid</th>
@@ -83,13 +86,13 @@ const Parents = () => {
 						<th scope="col"></th>
 					</thead>
 					<tbody>
-						{docs && docs.map((doc, key) =>
-							doc.firstName.includes(state.searchQuery)
-								|| doc.lastName.includes(state.searchQuery)
-								|| doc.username.includes(state.searchQuery) ?
-							<Parent key={key} doc={doc} />
-							: null
-						)}
+					{docs && docs.map((doc, key) =>
+						doc.firstName.includes(state.searchQuery)
+							|| doc.lastName.includes(state.searchQuery)
+							|| doc.username.includes(state.searchQuery) ?
+						<Parent key={key} doc={doc} removeHandler={RemoveHandler} />
+						: null
+					)}
 					</tbody>
 				</table>
 			</div>
