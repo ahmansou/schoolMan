@@ -1,8 +1,9 @@
 import classes from './Groups.module.scss';
 import { useDataAdd, GetAllData, useDataRemove } from '../../../hooks/useData';
-import { useEffect, useState } from 'react';
-import { Alert, FilterByValue } from '../../UIElements/UIElements';
+import { useContext, useEffect, useState } from 'react';
+import { Alert, FilterByValue, FormInput } from '../../UIElements/UIElements';
 import { Delete, Edit } from '@material-ui/icons';
+import { Context } from '../../../hooks/Store';
 
 const Group = (props) => {
 	const group = props.doc;
@@ -22,6 +23,15 @@ const Group = (props) => {
 }
 
 const NewGroupForm = (props) => {
+
+	const [globalState, dispatch] = useContext(Context);
+	const [focused, setFocused] = useState(false);
+
+	let itemStyle = {
+		color: globalState.accent.textColorSecondary,
+		backgroundColor: focused ? globalState.accent.darkerSecondary : globalState.accent.darker
+	}
+
 	const [state, setState] = useState({
 		name: '',
 		numberOfStudents: 0,	
@@ -49,7 +59,13 @@ const NewGroupForm = (props) => {
 	}
 
 	return (
-		<div className={classes.AddGroup} >
+		<div className={classes.AddGroup} 
+		style={{
+			backgroundColor: globalState.accent.primary,
+			borderColor: globalState.accent.outlines,
+			color: globalState.accent.textColor
+		}}
+		s >
 			<h4>Add a new Group</h4>
 			{
 			state.added === 1 ?
@@ -59,12 +75,12 @@ const NewGroupForm = (props) => {
 			: null
 			}
 			<form className={classes.NewGroupForm} onSubmit={AddHandler} >
-				<input type="text" placeholder="Name" required
+				<FormInput type='text' name='Name' required={true}
 					onChange={(e) => setState({...state, name: e.target.value})} />
-				<input type="number" placeholder="Number of students" required
-					onChange={(e) => setState({...state, numberOfStudents: e.target.value})} />
-				<input type="number" placeholder="Year" required
+				<FormInput type='number' name='Number of students' required={true}
 					onChange={(e) => setState({...state, year: e.target.value})} />
+				<FormInput type='number' name='Year' required={true}
+				onChange={(e) => setState({...state, numberOfStudents: e.target.value})} />
 				<input type="submit" value="Save" />
 			</form>
 		</div>
@@ -72,6 +88,8 @@ const NewGroupForm = (props) => {
 }
 
 const Groups = () => {
+
+	const [globalState, dispatch] = useContext(Context);
 
 	const [state, setState] = useState({
 		searchQuery: '',

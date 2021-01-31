@@ -1,9 +1,33 @@
 import classes from './SearchComponent.module.scss';
-import React, { Component } from 'react';
+import React, { Component, useContext, useState } from 'react';
 import Aux from '../../../hoc/Aux';
 import { BackDrop } from '../UIElements';
 import axios from 'axios';
 import me from '../../../assets/me.jpeg';
+import { Context } from '../../../hooks/Store';
+
+
+export const CustomInput = (props) => {
+	const [state, dispatch] = useContext(Context);
+	const [focused, setFocused] = useState(false);
+
+	let itemStyle = {
+		color: state.accent.textColorSecondary,
+		backgroundColor: focused ? state.accent.darkerSecondary : state.accent.darker
+	}
+
+	return (
+		<input
+			value={props.value}
+			onChange={e => props.onChange(e)}
+			placeholder={props.placeholder}
+			onFocus={() => setFocused(true)}
+			onBlur={() => setFocused(false)}
+			style={itemStyle}
+			onClick={props.setState}
+		/>
+	)
+}
 
 class SearchComponent extends Component {
 	state = {
@@ -16,7 +40,6 @@ class SearchComponent extends Component {
 
 	search = async query => {
 		let token = JSON.parse(localStorage.getItem('authToken'));
-		// if (query === '') {
 		if (query.length < 1 || query === '') {
 			this.setState({ users: null });
 			return ;
@@ -60,18 +83,19 @@ class SearchComponent extends Component {
 
 
 	render() {
+		let theme = this.context;
+		console.log('conxt', this.context);
 		return (
 			<Aux>
 			{this.state.query !== '' && this.state.showRes ?
 				<BackDrop onClick={() => this.setState({showRes: false})} />
-				: null }
+			: null }
 			<div className={classes.SearchComponent} >
-				<input
-					value={this.state.value}
-					onChange={e => this.onChangeHandler(e)}
-					placeholder="Search"
-					onClick={() => this.setState({showRes: true})}
-				/>
+				<CustomInput 
+					placeholder='Search'
+					value={this.state.value} 
+					onChange={this.onChangeHandler} 
+					onClick={() => this.setState({showRes: true})} />
 				{console.log(`|${this.state.query}|`)}
 				{this.state.query !== '' && this.state.showRes ?
 					<div className={this.state.users && this.state.users.length ? classes.SearchResult : [classes.SearchResult, classes.SearchNoResult].join(' ')} >

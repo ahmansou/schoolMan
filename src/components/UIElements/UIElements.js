@@ -3,9 +3,10 @@ import { Close, ReportProblemOutlined, CheckCircleOutlined } from '@material-ui/
 import Aux from '../../hoc/Aux';
 import axios from 'axios';
 import me from '../../assets/me.jpeg';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { Context } from '../../hooks/Store';
 
 export const Alert = (props) => {
 	let classname = [classes.Alert];
@@ -60,17 +61,30 @@ export const FilterSelect = (props) => (
 )
 
 export const FormInput = (props) => {
+	const [state, dispatch] = useContext(Context);
+	const [focused, setFocused] = useState(false);
+
+	let itemStyle = {
+		color: state.accent.textColorSecondary,
+		backgroundColor: focused ? state.accent.darkerSecondary : state.accent.darker
+	}
+
 	return (
 		<div className={classes.FormInput} >
-			<p>{props.label}{props.required ? ' *' : null}</p>
+			{props.label ?  <p>{props.label}{props.required ? ' *' : null}</p> : null }
 			{
 				props.isSelect ?
-				<select onChange={props.onChange} required>
+				<select 
+				onChange={props.onChange}
+				onFocus={() => setFocused(true)}
+				onBlur={() => setFocused(false)}
+				style={itemStyle}
+				 required>
 					{
 					props.default? 
 					<option value={props.default.value} >{props.default.name}</option>
 					:
-					<option value={undefined} >Please select a {props.label}</option>
+					<option value={undefined} >Please select a {props.name}</option>
 					}
 					{
 					props.coll && props.coll.map((option, key) => (
@@ -83,16 +97,25 @@ export const FormInput = (props) => {
 				{props.required ? 
 					props.default ? 
 						<input type={props.type} 
-							placeholder={props.label} 
+							placeholder={props.name} 
 							value={props.default}
+							onFocus={() => setFocused(true)}
+							onBlur={() => setFocused(false)}
+							style={itemStyle}
 							onChange={props.onChange} required/>
 						:
 						<input type={props.type} 
-							placeholder={props.label} 
+							placeholder={props.name} 
+							onFocus={() => setFocused(true)}
+							onBlur={() => setFocused(false)}
+							style={itemStyle}
 							onChange={props.onChange} required/>
 							: 
 							<input type={props.type} 
-							placeholder={props.label} 
+							onFocus={() => setFocused(true)}
+							onBlur={() => setFocused(false)}
+							style={itemStyle}
+							placeholder={props.name} 
 						onChange={props.onChange}/>
 				}
 				</Aux>	
@@ -139,10 +162,12 @@ export const DateParser = (date) => {
 }
 
 export const MainTitle = () => {
+	const [state, dispatch] = useContext(Context);
+	
 	return (
 		<div className={classes.MainTitle} >
-			<p className={classes.MainTxt} >ahmansou</p>
-			<a className={classes.SubTxt} href='/' >School Manager</a>
+			<p className={classes.MainTxt} style={{color: state.accent.textColorSecondary}} >ahmansou</p>
+			<a className={classes.SubTxt} style={{color: state.accent.textColor}} href='/' >School Manager</a>
 		</div>
 	)
 }
@@ -153,3 +178,4 @@ export const FilterByValue = (props) => {
 			onChange={(e) => props.setState({...props.state, searchQuery: e.target.value})} />
 	)
 }
+

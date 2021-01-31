@@ -4,41 +4,29 @@ export const colls = [
 	{title: 'Home', type: 'direct', icon: <Home />, to: '/'},
 	{title: 'Students and Parents', type: 'toggle', items: [
 		{name: 'All students', to: '/students'},
-		// {name: 'Add new student', to: '/new-student'},
 		{name: 'All parents', to: '/parents'},
-		// {name: 'Add new parent', to: '/new-parent'},
 	], icon: <SupervisorAccount />},
 	{title: 'Personel', type: 'toggle', items: [
 		{name: 'All staffs', to: '/staffs'},
-		// {name: 'Add new staff', to: '/new-staff'},
 		{name: 'Other personel', to: '/personels'},
-		// {name: 'Add new personel', to: '/new-personel'},
 		{name: 'Personel types', to: '/personel-types'},
 	], icon: <SupervisedUserCircle />},
 	{title: 'Classes', type: 'toggle', items: [
 		{name: 'All classes', to: '/classes'},
-		// {name: 'Add new classe', to: '/new-classe'},
 		{name: 'All groups', to: '/groups'},
-		// {name: 'Add new group', to: '/new-group'},
 	], icon: <Class />},
 	{title: 'Subjects & Exams', type: 'toggle', items: [
 		{name: 'All subjects', to: '/subjects'},
-		// {name: 'Add new subject', to: '/new-subject'},
 		{name: 'All exams', to: '/exams'},
-		// {name: 'Add new exam', to: '/new-exam'},
 	], icon: <Assignment />},
 	{title: 'Library', type: 'toggle', items: [
 		{name: 'All books', to: '/books'},
-		// {name: 'Add new book', to: '/new-book'},
 		{name: 'Lending history', to: '/lend-history'},
 	], icon: <LocalLibrary />},
 	{title: 'Logistics', type: 'toggle', items: [
 		{name: 'All vehicles', to: '/vehicles'},
-		// {name: 'Add new vehicle', to: '/new-vehicle'},
 		{name: 'All routes', to: '/routes'},
-		// {name: 'Add new route', to: '/new-route/'},
 		{name: 'All sites', to: '/sites'},
-		// {name: 'Add new site', to: '/new-site'},
 	], icon: <AirportShuttle />},
 	// {title: 'Users', type: 'toggle', items: [
 	// 	{name: 'All users', to: '/users'},
@@ -48,17 +36,12 @@ export const colls = [
 	{title: '', type: 'blank'},
 ]
 
-// export const botMenu = [
-// 	{icon: <SettingsOutlined />, to: 'settings'}
-// 	{icon: <SettingsOutlined />, to: 'settings'}
-// ]
-
-
 export const classArray = [
 	{value: 'SM', name: 'SM'},
 	{value: 'PC', name: 'PC'},
 	{value: 'SVT', name: 'SVT'}
 ];
+
 export const groupArray =  [
 	{value: 'SM1', name: 'SM1'},
 	{value: 'SM2', name: 'SM2'},
@@ -75,3 +58,62 @@ export const gender = [
 	{name: 'Female', value: 'F'},
 	{name: 'Male', value: 'M'}
 ]
+
+export const accents = {
+	light : {
+		name: 'light',
+		primary: '#FFFFFF',
+		darker: '#f4f5f8',
+		darkerSecondary: '#dedfe2',
+		secondary: '#F0F1F3',
+		active: '#FAE3D0',
+		activeHover: '#F8D2B2',
+		activeText: '#9e693e',
+		outlines: '#dbdbdb',
+		textColor: 'black',
+		textColorSecondary: '#6A737D',
+		hoverInfo: '#000000',
+		hoverInfoText: '#FFFFFF',
+		// success: '',
+	},
+	dark : {
+		name: 'dark',
+		primary: '#151E28',
+		darker: '#0E141B',
+		darkerSecondary: '#000000',
+		secondary: '#0F151C',
+		active: '#1B263B',
+		activeHover: '#2D3F62',
+		activeText: '#FFFFFF',
+		outlines: '#070A0D',
+		textColor: '#FFFFFF',
+		textColorSecondary: '#6A737D',
+		hoverInfo: '#4A5159',
+		hoverInfoText: '#FFFFFF',
+		// success: '',
+	},
+	// accent1 : {
+	// 	name: 'accent1',
+	// 	primary: '#FFFFFF',
+	// 	darker: '#fbefef',
+	// 	secondary: '#B5838D',
+	// 	outlines: '#F3CECF',
+	// 	textColor: '#DE7C80',
+	// 	textColorSecondary: '#8B949E',
+	// 	hoverInfo: '#F3CECF',
+	// 	hoverInfoText: '#DE7C80',
+	// 	// success: '',
+	// },
+	// accent2 : {
+	// 	name: 'accent2',
+	// 	primary: '#FFFFFF',
+	// 	darker: '#CAF0F8',
+	// 	secondary: '#0096C7',
+	// 	outlines: '#90E0EF',
+	// 	textColor: '#00B4D8',
+	// 	textColorSecondary: '#8B949E',
+	// 	hoverInfo: '#CAF0F8',
+	// 	hoverInfoText: '#0096C7',
+	// 	// success: '',
+	// },
+}

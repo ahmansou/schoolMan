@@ -89,15 +89,16 @@
 	& input[type=number],
 	& input[type=date],
 	& input[type=email], & select {
-		background-color: #EFEFEF;
+		margin-top: 0;
+		// background-color: #EFEFEF;
 		border: none;
-		background-color: #EFEFEF;
+		// background-color: #EFEFEF;
 		transition: all .3s ease;
 		width: 100%;
 		padding: 10px 20px;
 		&:focus {
 			outline: none;
-			background-color: #dddddd;
+			// background-color: #dddddd;
 		}
 	}
 	& select {

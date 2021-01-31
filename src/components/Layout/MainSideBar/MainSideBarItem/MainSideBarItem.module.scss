@@ -10,13 +10,9 @@
 		cursor: pointer;
 		transition: all .2s ease;
 		text-decoration: none;
-		color: black;
 		font-size: 16px;
 		&:focus {
 			outline: none;
-		}
-		&:hover {
-			background-color: #f4f5f8;
 		}
 		& p {
 			margin: auto;
@@ -24,18 +20,9 @@
 			margin-right: 15px;
 		}
 		.ToggleArrow {
+			border-radius: 3px;
 			margin: auto;
 			margin-right: 0;
-			&:hover {
-				background-color: #dedfe2;
-			}
-		}
-	}
-
-	.MainSideBarItemToggleActive {
-		color: #9e693e;
-		&:hover {
-			// background-color: #fae3d0;
 		}
 	}
 
@@ -44,23 +31,21 @@
 		overflow: hidden;
 		display: flex;
 		flex-direction: column;
-		background-color: white;
 		width: 100%;
 		transition: all .2s ease;
 		.ItemItem {
-			color: black;
 			width: 100%;
 			margin: auto;
 			padding: 10px 0;
 			padding-left: 60px;
 			border-radius: 3px;
 			text-decoration: none;
+			transition: all .2s ease;
 			&:focus {
 				outline: none;
 			}
 			&:hover {
 				text-decoration: none;
-				background-color: #f4f5f8;
 			}
 		}
 	}
@@ -70,14 +55,5 @@
 		max-height: 300px;
 		transition: height .2s ease;
 	}
-
-	.MainSideBarItemActive, .MainSideBarItemMenu .ItemItemActive {
-		background-color: #fae3d0;
-		color: #9e693e;
-		&:hover {
-			background-color: #f8d2b2;
-		}
-	}
-
 }
 
