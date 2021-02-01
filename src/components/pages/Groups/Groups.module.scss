@@ -31,33 +31,17 @@
 		.NewGroupForm {
 			display: flex;
 			flex-direction: column;
-			// margin-top: 20px;
-			// input[type = text], input[type = number] {
-			// 	border: none;
-			// 	transition: all .2s ease;
-			// 	padding: 7px 20px;
-			// 	border-radius: 5px;
-			// 	&:focus {
-			// 		outline: none;
-			// 		// filter: brightness(190%);
-			// 	}
-			// }
 		
 			input[type = submit] {
-				background-color: #f4a261;
 				border: none;
-				// width: 150px;
-				padding: 5px 20px;
+				padding: 10px 20px;
 				color: white;
 				font-weight: bold;
 				margin-top: 20px;
 				font-size: 15px;
 				transition: all .2s ease;
-				&:hover {
-					// background-color: #F29040;
-					// filter: brightness(90%);
-					// filter: hue-rotate(-10deg);
-				}
+				border-radius: 3px;
+				border: 1px solid;
 			}
 			& * {
 				width: 100%;
@@ -67,11 +51,10 @@
 	}
 
 	.GroupsList {
-		background-color: white;
-		border: solid 1px #dbdbdb;
+		border: solid 1px;
 		border-radius: 7px;
 		padding: 20px;
-
+		// color: white;
 		.Filters {
 			width: 100%;
 			padding: 20px 0;
@@ -82,15 +65,12 @@
 		display: flex;
 		& .Action {
 			margin: auto 5px;
-			padding: 5px;
+			padding: 4px;
 			color: white;
 			cursor: pointer;
-		}
-		& .Remove {
-			background-color: #e22856;
-		}
-		& .Edit {
-			background-color: #64a54e;
+			border: 1px solid;
+			border-radius: 3px;
+			transition: all .2s ease;
 		}
 	}
 }

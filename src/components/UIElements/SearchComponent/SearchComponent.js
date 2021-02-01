@@ -13,7 +13,8 @@ export const CustomInput = (props) => {
 
 	let itemStyle = {
 		color: state.accent.textColorSecondary,
-		backgroundColor: focused ? state.accent.darkerSecondary : state.accent.darker
+		backgroundColor: focused ? state.accent.darkerSecondary : state.accent.darker,
+		borderColor: state.accent.outlines
 	}
 
 	return (

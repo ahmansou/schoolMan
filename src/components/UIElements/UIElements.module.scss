@@ -89,13 +89,16 @@
 	& input[type=number],
 	& input[type=date],
 	& input[type=email], & select {
+		border: solid 1px;
+		border-radius: 3px;
 		margin-top: 0;
+		transition: all .2s ease;
 		// background-color: #EFEFEF;
-		border: none;
+		// border: none;
 		// background-color: #EFEFEF;
 		transition: all .3s ease;
 		width: 100%;
-		padding: 10px 20px;
+		padding: 7px 20px;
 		&:focus {
 			outline: none;
 			// background-color: #dddddd;
@@ -138,22 +141,23 @@
 
 .FilterByValue {
 	transition: all .2s ease;
-	background-color: #F0F1F3;
+	// background-color: #F0F1F3;
 	width: 300px;
 	margin: auto;
 	padding: 7px 20px;
 	border-radius: 5px;
-	color: #c1c1c2;	
-	border: none;
+	// color: #c1c1c2;	
+	// border: none;
+	border: solid 1px;
 	&::placeholder{
-		color: #c1c1c2;
+		// color: #c1c1c2;
 	}
 	&:focus {
-		color: rgb(140, 140, 140);
+		// color: rgb(140, 140, 140);
 		outline: none;
-		background-color: #dddddd;
+		// background-color: #dddddd;
 		&::placeholder{
-			color: rgb(125, 125, 125);
+			// color: rgb(125, 125, 125);
 		}
 	}
 }

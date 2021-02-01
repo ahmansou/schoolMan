@@ -66,7 +66,8 @@ export const FormInput = (props) => {
 
 	let itemStyle = {
 		color: state.accent.textColorSecondary,
-		backgroundColor: focused ? state.accent.darkerSecondary : state.accent.darker
+		backgroundColor: focused ? state.accent.darkerSecondary : state.accent.darker,
+		borderColor: state.accent.outlines
 	}
 
 	return (
@@ -173,8 +174,20 @@ export const MainTitle = () => {
 }
 
 export const FilterByValue = (props) => {
+	const [globalState, dispatch] = useContext(Context);
+	const [focused, setFocused] = useState(false);
+
+	let itemStyle = {
+		color: globalState.accent.textColorSecondary,
+		backgroundColor: focused ? globalState.accent.darkerSecondary : globalState.accent.darker,
+		borderColor: globalState.accent.outlines
+	}
+
 	return (
-		<input className={classes.FilterByValue} type="text" placeholder="Search by name" 
+		<input className={classes.FilterByValue} type="text" placeholder="Search by name"  
+			style={itemStyle}
+			onFocus={() => setFocused(true)}
+			onBlur={() => setFocused(false)}
 			onChange={(e) => props.setState({...props.state, searchQuery: e.target.value})} />
 	)
 }

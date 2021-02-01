@@ -7,6 +7,26 @@ import { Context } from '../../../hooks/Store';
 
 const Group = (props) => {
 	const group = props.doc;
+	const [globalState, dispatch] = useContext(Context);
+	const [buttonHover, setButtonHover] = useState({
+		edit: false,
+		delete: false,
+	});
+
+	let buttonStyle = (button) => {
+		if (button === 'edit')
+			return (
+				{
+					borderColor: globalState.accent.successOutline,
+					backgroundColor: buttonHover.edit ? globalState.accent.successHover : globalState.accent.success}
+			)
+		return (
+			{
+				borderColor: globalState.accent.dangerOutline,
+				backgroundColor: buttonHover.delete ? globalState.accent.dangerHover : globalState.accent.danger}
+		)
+		
+	}
 
 	return (
 		<tr>
@@ -14,8 +34,16 @@ const Group = (props) => {
 			<td>{group.numberOfStudents}</td>
 			<td>{group.year}</td>
 			<td className={classes.Actions}>
-				<div className={[classes.Action, classes.Edit].join(' ')} ><Edit /></div>
-				<div className={[classes.Action, classes.Remove].join(' ')}
+				<div 
+					onMouseEnter={() => setButtonHover({...buttonHover, edit: true})}
+					onMouseLeave={() => setButtonHover({...buttonHover, edit:false})}
+					style={buttonStyle('edit')}
+					className={[classes.Action, classes.Edit].join(' ')} ><Edit /></div>
+				<div 
+					onMouseEnter={() => setButtonHover({...buttonHover, delete: true})}
+					onMouseLeave={() => setButtonHover({...buttonHover, delete:false})}
+					style={buttonStyle('delete')}
+					className={[classes.Action, classes.Remove].join(' ')}
 					onClick={() => props.removeHandler(group._id)} ><Delete /></div>
 			</td>
 		</tr>
@@ -25,11 +53,12 @@ const Group = (props) => {
 const NewGroupForm = (props) => {
 
 	const [globalState, dispatch] = useContext(Context);
-	const [focused, setFocused] = useState(false);
+	// const [focused, setFocused] = useState(false);
+	const [buttonHover, setButtonHover] = useState(false);
 
-	let itemStyle = {
-		color: globalState.accent.textColorSecondary,
-		backgroundColor: focused ? globalState.accent.darkerSecondary : globalState.accent.darker
+	let buttonStyle = {
+		borderColor: globalState.accent.successOutline,
+		backgroundColor: buttonHover ? globalState.accent.successHover : globalState.accent.success
 	}
 
 	const [state, setState] = useState({
@@ -64,8 +93,7 @@ const NewGroupForm = (props) => {
 			backgroundColor: globalState.accent.primary,
 			borderColor: globalState.accent.outlines,
 			color: globalState.accent.textColor
-		}}
-		s >
+		}} >
 			<h4>Add a new Group</h4>
 			{
 			state.added === 1 ?
@@ -81,7 +109,10 @@ const NewGroupForm = (props) => {
 					onChange={(e) => setState({...state, year: e.target.value})} />
 				<FormInput type='number' name='Year' required={true}
 				onChange={(e) => setState({...state, numberOfStudents: e.target.value})} />
-				<input type="submit" value="Save" />
+				<input type="submit" value="Save" 
+					onMouseEnter={() => setButtonHover(true)}
+					onMouseLeave={() => setButtonHover(false)}
+					style={buttonStyle} />
 			</form>
 		</div>
 	)
@@ -117,7 +148,12 @@ const Groups = () => {
 	return (
 		<div className={classes.Groups} >
 			<NewGroupForm docs={docs} setDocs={setDocs} />
-			<div className={classes.GroupsList} >
+			<div className={classes.GroupsList} 
+				style={{
+					backgroundColor: globalState.accent.primary,
+					borderColor: globalState.accent.outlines,
+					color: globalState.accent.textColor
+				}} >
 				<h4>All groups</h4>
 				<div className={classes.Filters} >
 					<FilterByValue setState={setState} state={state} />
@@ -129,7 +165,10 @@ const Groups = () => {
 					<Alert alert='fail' onClick={() => setState({...state, removed: 0})} >Couldn't remove group</Alert>
 				: null
 				}
-				<table className="table">
+				<table className="table"  
+					style={{
+						color: globalState.accent.textColor
+					}} >
 					<tbody>
 					<tr>
 						<th scope="col">Name</th>
