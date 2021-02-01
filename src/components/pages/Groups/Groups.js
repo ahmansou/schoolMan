@@ -59,7 +59,7 @@ const NewGroupForm = (props) => {
 	let buttonStyle = {
 		borderColor: globalState.accent.successOutline,
 		backgroundColor: buttonHover ? globalState.accent.successHover : globalState.accent.success
-	}
+	} 
 
 	const [state, setState] = useState({
 		name: '',
